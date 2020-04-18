@@ -41,6 +41,12 @@ a {
     max-width: 100%;
 }
 
+@media screen and (min-width: 1000px) {
+    #graph {
+        width: 70%;
+    }
+}
+
 .navbar-custom {
   background-color: #008fff;
   border-color: #005ea7;
