@@ -11,6 +11,8 @@ This graph has two curve lines and one constant flat line. Since it's a metaphor
 Several articles have been written about this graph. We've collected a few here:
 
 * [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
+* [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
+* [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
 
 {% include plotFlattenTheCurve.html %}
 

@@ -2,18 +2,15 @@
   Tell us what modality you used to explore the data (audio, visual, both) and what question you have about it. We will post answers here or sign up to receive an email alert when your question has been answered.
 </p>
 
-<!-- https://docs.google.com/spreadsheets/d/1jE12UlEUJVCVTsGaiuNlLjPfIdN7l4NslTBAj6oVK1Y/edit#gid=0
-
-Key: e9a1236ac642ce235ff516784b494b78d8572cce
-
-client ID: 1077830397858-3567fcgku8ujnh6lhd73d6fns93j6702.apps.googleusercontent.com -->
-
-
-<form aria-label="{{ page.form }}" onSubmit="onFormSubmit()">
+<!-- data-email="example@email.net"  -->
+<form aria-label="{{ page.form }}" 
+      class="gform pure-form pure-form-stacked" method="POST"
+      action="https://script.google.com/macros/s/AKfycbxmXXdV4OMHci_NA-EeOMtqG2CXXPAa77gLyta6/exec">
 
   <div class="form-group">
     <label for="question">Question:</label>
-    <input type="text" class="form-control" id="question" placeholder="Type your question here">
+    <input id="question" name="question" type="text" class="form-control" 
+           placeholder="Type your question here">
   </div>
 
   <div role="form-group" aria-labelledby="modality">
@@ -30,25 +27,44 @@ client ID: 1077830397858-3567fcgku8ujnh6lhd73d6fns93j6702.apps.googleusercontent
       </label>
       <label class="radio-inline" for="visualAudio">
         <input type="radio" name="modality" id="visualAudio" value="visualAudio"/>
-        Visual & Audio
+        Visual and Audio
       </label>
     </div>
   </div>
 
   <div class="form-group">
     <label for="email">Email (optional):</label>
-    <input type="email" class="form-control" id="email" placeholder="Email">
+    <input id="email" name="email" type="email" class="form-control" placeholder="Email">
   </div>
 
   <button type="submit" id="submit">Submit</button>
-  
+
+  <!-- Customise the Thankyou Message People See when they submit the form: -->
+  <div class="thankyou_message" style="display:none;">
+    <h2>Thanks for submitting a question.</h2> 
+
+    <p>
+      If you provided an email we will notify you of an answer. We will be posting Q&As in this website after May 10. In the meantime click below to browse Q&As others have submitted.
+    </p>
+
+    <button type="button" aria-label="Browse Q-A" onclick="browseQA()">Browse Questions</button>
+  </div>
+  <!-- end thank you -->
 </form>
 
+<div class="browseQA" id="browseQAfield" style="display:none;">
+  <p>
+  </p>
+</div>
+
+<script>
+  function browseQA(form) {
+    $("#browseQAfield").css("display", "block");
+  }
+</script>
 
 
 
-<!-- document.getElementById('alertconfirm')
-  .addEventListener('click', function() {
-    /* [… code saving data …] */
-    alert('Thanks for submitting the form!');
-  }); -->
+
+
+
