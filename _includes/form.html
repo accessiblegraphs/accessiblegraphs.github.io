@@ -1,0 +1,54 @@
+<p>
+  Tell us what modality you used to explore the data (audio, visual, both) and what question you have about it. We will post answers here or sign up to receive an email alert when your question has been answered.
+</p>
+
+<!-- https://docs.google.com/spreadsheets/d/1jE12UlEUJVCVTsGaiuNlLjPfIdN7l4NslTBAj6oVK1Y/edit#gid=0
+
+Key: e9a1236ac642ce235ff516784b494b78d8572cce
+
+client ID: 1077830397858-3567fcgku8ujnh6lhd73d6fns93j6702.apps.googleusercontent.com -->
+
+
+<form aria-label="{{ page.form }}" onSubmit="onFormSubmit()">
+
+  <div class="form-group">
+    <label for="question">Question:</label>
+    <input type="text" class="form-control" id="question" placeholder="Type your question here">
+  </div>
+
+  <div role="form-group" aria-labelledby="modality">
+    <h4 id="modality" class="bold">Modality Used:</h4>
+    <div class="controls-row">
+      <label class="radio-inline" for="audio">
+        <input type="radio" name="modality" id="audio" value="audio"/>
+        Audio
+      </label>
+
+      <label class="radio-inline" for="visual">
+        <input type="radio" name="modality" id="visual" value="visual"/>
+        Visual
+      </label>
+      <label class="radio-inline" for="visualAudio">
+        <input type="radio" name="modality" id="visualAudio" value="visualAudio"/>
+        Visual & Audio
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email (optional):</label>
+    <input type="email" class="form-control" id="email" placeholder="Email">
+  </div>
+
+  <button type="submit" id="submit">Submit</button>
+  
+</form>
+
+
+
+
+<!-- document.getElementById('alertconfirm')
+  .addEventListener('click', function() {
+    /* [… code saving data …] */
+    alert('Thanks for submitting the form!');
+  }); -->

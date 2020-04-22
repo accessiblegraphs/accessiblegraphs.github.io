@@ -1,6 +1,6 @@
 <nav id="mainNav" class="navbar navbar-fixed-top navbar-custom">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- <B></B>rand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -8,50 +8,29 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Accessible Graphics</a>
+            <a class="navbar-brand page-scroll" href="/">Accessible Graphics</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-center">
-
-                <li>
-                    <a class="page-scroll" href="#main">Main</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Graphs Collection <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{{ "flattenTheCurve" | relative_url }}">Flatten The Curve</a></li>
+                    <li><a href="{{ "plotCases" | relative_url }}">Plot Cases</a></li>
+                    <li><a href="{{ "cdcTestingData" | relative_url }}">CDC Testing Data</a></li>
+                  </ul>
                 </li>
 
-                <li>
-                    <a class="page-scroll" href="#plotFlattenTheCurve">Flatten the Curve</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#plotCasesLinear">plotCasesLinear</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#plotCasesLog">plotCasesLog</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#plotCDCdata">plotCDCdata</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#plotRt">plotRt</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#survey">Survey</a>
-                </li>
-
-                <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                </li>
-
-
+                <li><a href="{{ "survey" | relative_url }}">Survey</a></li>
+                <li><a href="{{ "contact" | relative_url }}">Contact</a></li>
 
             </ul>
         </div>
         <!-- /.navbar-collapse -->
+
     </div>
     <!-- /.container-fluid -->
 </nav>
