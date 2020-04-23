@@ -24,7 +24,7 @@
     var formData = {};
     fields.forEach(function(name){
       var element = elements[name];
-      
+
       // singular form elements just have one value
       formData[name] = element.value;
 
@@ -39,6 +39,7 @@
         }
         formData[name] = data.join(', ');
       }
+
     });
 
     // add form-specific values into the data
@@ -61,7 +62,7 @@
       return false;
     }
 
-    disableAllButtons(form);
+    // disableAllButtons(form);
     var url = form.action;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
@@ -69,15 +70,21 @@
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
+          
           form.reset();
+          
           var formElements = form.querySelector(".form-elements")
           if (formElements) {
             formElements.style.display = "none"; // hide form
           }
+          
+          alert('Thank you for submitting a question. If you provided an email we will notify you of an answer. We will be posting Q&As in this website after May 10. In the meantime click below to browse Q&As others have submitted.');
+          
           var thankYouMessage = form.querySelector(".thankyou_message");
           if (thankYouMessage) {
             thankYouMessage.style.display = "block";
           }
+
         }
     };
     // url encode form data for sending as post data
@@ -102,4 +109,5 @@
       buttons[i].disabled = true;
     }
   }
+
 })();

@@ -55,6 +55,13 @@ main {
   max-width: 100%;
 }
 
+#displayQA {
+  border: 1.5px solid $theme-highlight;
+  background-color: WhiteSmoke;
+  padding: 10px;
+  margin: 25px;
+}
+
 .question {
     padding-top: 30px;
 }
