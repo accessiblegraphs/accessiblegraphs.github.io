@@ -8,14 +8,10 @@ form: 'flattenTheCurve'
 
 This graph has two curve lines and one constant flat line. Since it's a metaphor plot, the numbers don't represent real values. Instead the shape of the curves are used to communicate the message. The more people reporting with the virus on a given day, the higher the curve; which means the virus is spreading fast. This is shown as the curve 'without measures'. On the other hand, a low curve ('with measures') shows that the virus is spreading slower and fewer people are diagnosed with the disease on any given day. Keeping the curve down — diminishing the rate at which new cases occur — prevents overtaxing the healthcare systems and resources (represented as the constant 'capacity level' line).
 
-Several articles have been written about this graph. We've collected a few here:
-
-* [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
-* [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
-* [Flattening the Coronavirus Curve - New York Times](https://www.nytimes.com/article/flatten-curve-coronavirus.html)
-
 {% include plotFlattenTheCurve.html %}
 
-## Have a question about this graph?
-
 {% include form.html %}
+
+## Articles In The Media
+
+* [Flattening the Coronavirus Curve](https://www.nytimes.com/article/flatten-curve-coronavirus.html). The New York Times. Siobhan Roberts. (2020 March 27).  
