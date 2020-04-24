@@ -1,7 +1,6 @@
 ---
 layout: graphLayout
 title: 'CDC Testing Data'
-form: 'CDCtesting'
 plot: 'plotCDCdata'
 ---
 
