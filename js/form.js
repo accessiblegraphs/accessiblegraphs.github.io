@@ -57,12 +57,17 @@
     var formData = getFormData(form);
     var data = formData.data;
 
+    if (!checkValidSubmission(formData)) {
+      // console.log("bad submission");
+      return false;
+    }
+
     // If a honeypot field is filled, assume it was done so by a spam bot.
     if (formData.honeypot) {
       return false;
     }
 
-    // disableAllButtons(form);
+    disableAllButtons(form);
     var url = form.action;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
@@ -78,13 +83,13 @@
             formElements.style.display = "none"; // hide form
           }
           
-          alert('Thank you for submitting a question. If you provided an email we will notify you of an answer. We will be posting Q&As in this website after May 10. In the meantime click below to browse Q&As others have submitted.');
+          // alert('Thank you for submitting a question. If you provided an email we will notify you of an answer. We will be posting Q&As in this website after May 10. In the meantime click below to browse Q&As others have submitted.');
           
           var thankYouMessage = form.querySelector(".thankyou_message");
           if (thankYouMessage) {
             thankYouMessage.style.display = "block";
           }
-
+          
         }
     };
     // url encode form data for sending as post data
@@ -92,6 +97,22 @@
         return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
     }).join('&');
     xhr.send(encoded);
+  }
+
+  function checkValidSubmission(formData) {
+
+    // Question is required
+    if (!formData.data.question) {
+      return false;
+    }
+
+    // Modality is also required
+    if (!formData.data.modality) {
+      return false;
+    }
+
+    return true;
+  
   }
   
   function loaded() {

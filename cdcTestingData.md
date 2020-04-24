@@ -1,7 +1,8 @@
 ---
-layout: default
+layout: graphLayout
 title: 'CDC Testing Data'
 form: 'CDCtesting'
+plot: 'plotCDCdata'
 ---
 
 Respiratory testing for Covid-19 in the U.S. is shown below. The data is updated daily from the [CDC Coronavirus Cases, Data & Surveillance](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/testing-in-us.html).
@@ -10,6 +11,5 @@ Widespread Covid-19 testing is crucial for many reasons. Testing helps healthcar
 
 According to the CDC website, public health laboratories using CDC tests are no longer required to submit samples to CDC for confirmation beginning March 14th, 2020. The CDC is focusing on other ways to support public health.
 
-{% include plotCDCdata.html %}
 
-{% include form.html %}
+
