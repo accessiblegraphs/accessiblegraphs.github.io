@@ -4,8 +4,8 @@
 # April 23, 2020
 
 # Installs need-to-be installed packages
-#import PackageSetup
-#PackageSetup.main()
+import PackageSetup
+PackageSetup.main()
 
 # Import relevant libraries
 from selenium import webdriver
@@ -16,6 +16,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.offline import plot
+import re
 
 # Module variables
 CDCTestData = []
@@ -27,7 +28,48 @@ def main():
     
     scrapeCDC()
     plotCDC()
+    modifyCDC()
+
+def modifyCDC():
     
+    # make instance of Beautiful soup class
+    soup = BeautifulSoup(open("../_includes/plotCDCdata_test.html"), features='html.parser')
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+    
+    # values to update
+    newValuesCount = len(CDCTestData) * 2
+    newNobs = newValuesCount
+    dates = [element[0] for element in CDCTestData]
+    CDCLabTests = [int(element[1].split('‡')[0]) for element in CDCTestData]
+    PublicLabTests = [int(element[2].split('§')[0]) for element in CDCTestData]
+    newMin = min(min(CDCLabTests), min(PublicLabTests))
+    newMax = max(max(CDCLabTests), max(PublicLabTests))
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(len(CDCLabTests)):
+        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(CDCLabTests[i]) + '</V><V>CDC Labs</V>'
+        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(PublicLabTests[i]) + '</V><V>US Public Health Labs</V>'
+    
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotCDCdata.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
     
 def scrapeCDC():
     
@@ -78,16 +120,17 @@ def plotCDC():
     fig.update_layout(
             title='Number of Specimans Tested for SARS CoV-2 by <br>CDC labs and US Public Labs',
             title_x=0.5,
-            xaxis_title = 'Date',
+            xaxis_title = 'Date (data in gray still pending)',
             yaxis_title = 'Specimans Tested',
-            font = dict(size = 16),
-            height=600,
+            font = dict(size = 20),
+            height=1000,
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             legend_orientation="h",
             legend=dict(x=-.1, y=-0.2),
             bargap=0.01, # gap between bars of adjacent location coordinates.
-            bargroupgap=0 # gap between bars of the same location coordinate.
+            bargroupgap=0, # gap between bars of the same location coordinate.
+            margin=dict(r=10)
             )
             
     # Add shaded uncertainty region
@@ -111,12 +154,15 @@ def plotCDC():
         )])
     fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='black', tickformat = "digit",)
         
-    fig.write_html("../_includes/CDCTestingPlotly.html",
-        include_plotlyjs = 'cdn',
-        full_html = False,
-        default_width = '110%',
-        default_height = '100%',
-        )
+    fig.write_image("../Images_Plotly/CDCTestingPlotly.png",width=1200, height=1000, scale=2)
+    
+# For writing html
+#    fig.write_html("../_includes/CDCTestingPlotly.html",
+#        include_plotlyjs = 'cdn',
+#        full_html = False,
+#        default_width = '110%',
+#        default_height = '100%',
+#        )
     
     
 
