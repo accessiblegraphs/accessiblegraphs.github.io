@@ -4,4 +4,7 @@
 pip3 install selenium
 pip3 install beautifulsoup4
 pip3 install Plotly
+pip3 install pandas
+pip3 install psutil
+pip3 install requests
 conda install -c plotly plotly-orca

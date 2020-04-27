@@ -4,14 +4,10 @@
 # April 23, 2020
 
 # Installs need-to-be installed packages
-import PackageSetup
-#PackageSetup.main()
 
 # Import relevant libraries
 from selenium import webdriver
 from bs4 import BeautifulSoup
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
