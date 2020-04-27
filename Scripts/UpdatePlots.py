@@ -5,7 +5,7 @@
 
 # Installs need-to-be installed packages
 import PackageSetup
-PackageSetup.main()
+#PackageSetup.main()
 
 # Import relevant libraries
 from selenium import webdriver
