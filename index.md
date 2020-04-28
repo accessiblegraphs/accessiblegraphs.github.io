@@ -15,7 +15,7 @@ The Accessible Graphics project was launched as a platform to provide important 
 ## Project Data Collection
 Through this project we are also interested in understanding the strengths and limitations of existing technologies in providing effective alternative representations. We are gathering feedback to improve how we present the graphics and to support the design of multimodal visualization libraries. Each visualization has an option to submit questions you may have about the graphic or data. Answers to all valid submitted questions will be posted on the website promptly, optionally you may opt to receive an email alert. Last, we are also collecting more general information on multimodal data literacy. You may find more information in the Survey Page.
 
-This work is being done by researchers at Stanford University. [Contact us]({% link contact.md %}) if you have any questions, feedback, or comments.
+This work is being done by researchers at Stanford University and University of Michigan. [Contact us]({% link contact.md %}) if you have any questions, feedback, or comments.
 
 ## Datasets In Use
 * [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19)
