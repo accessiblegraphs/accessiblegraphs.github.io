@@ -2,6 +2,7 @@
 layout: default
 title: 'CDC Testing Data'
 plot: 'plotCDCdata'
+dataset: 'CDC_TestData'
 ---
 
 Respiratory testing for Covid-19 in the U.S. is shown below. The data is updated daily from the [CDC Coronavirus Cases, Data & Surveillance](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/testing-in-us.html).
@@ -14,6 +15,7 @@ According to the CDC website, public health laboratories using CDC tests are no 
 
 {% include form.html %}
 
+{% include tableData.html %}
 
 
 

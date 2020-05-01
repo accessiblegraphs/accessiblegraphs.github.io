@@ -1,6 +1,7 @@
 ---
 layout: default
 title: 'Global Evolution of Covid-19 Cases'
+dataset: 'GlobalTimeSeries'
 ---
 
 The evolution of Covid-19 cases is shown for select countries in arithmetic and logarithmic graphs below. The data is updated daily with the [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19).
@@ -19,11 +20,11 @@ Semi-logarithmic graphs, instead, show y-axis values to be logarithmically space
 
 {% include form.html %}
 
+{% include tableData.html %}
 
 ## Articles in the Media
 
 * [What's a logarithmic graph and how does it help explain the spread of COVID-19?](https://www.weforum.org/agenda/2020/04/covid-19-spread-logarithmic-graph/). World Economic Forum. Sean Flemming. (2020 April 03).
-
 
 
 

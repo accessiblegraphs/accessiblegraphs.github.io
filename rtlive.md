@@ -2,6 +2,7 @@
 layout: default
 title: 'Rt: Effective Reproduction Rates'
 plot: 'plotRt'
+dataset: 'rt'
 ---
 
 State-by-state effective reproduction rates for Covid-19 is provided by the bar graph below. The data is updated daily from [Rt.Live](https://rt.live/). The model for calculating Rt was made and is updated by Kevin Systrom and Thomas Vledeck.
@@ -13,3 +14,5 @@ The effective reproduction rate (Rt) is a metric used by epidemiologists to meas
 {% include plotRt.html %}
 
 {% include form.html %}
+
+{% include tableData.html %}
