@@ -25,11 +25,6 @@ h2 {
   text-align: center;
 }
 
-h4 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
 p {
     font-size: $base-font-size;
     line-height: 1.5;
@@ -95,10 +90,15 @@ main {
   background-color: WhiteSmoke; //#f5f5f5;
 }
 
+#modality {
+  font-weight: bold;
+}
+
 //**  Navabar Style **//
 .navbar-custom {
   background-color: $theme-primary;
   border-color: #005ea7;
+  // font-weight: bold;
 }
 .navbar-custom .navbar-brand {
   color: #ffffff;
