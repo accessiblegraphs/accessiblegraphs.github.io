@@ -8,3 +8,4 @@ pip3 install pandas
 pip3 install psutil
 pip3 install requests
 conda install -c plotly plotly-orca
+/Applications/Python\ 3.7/Install\ Certificates.command

@@ -13,12 +13,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.offline import plot
 import re
+import pandas as pd
+from datetime import datetime
 
 # Module variables
 CDCTestData = []
-
-# configure webdriver
-driver = webdriver.Chrome("/usr/local/bin/chromedriver")
+RtData = []
 
 def main():
     
@@ -26,32 +26,96 @@ def main():
     plotCDC()
     modifyCDC()
 
-def modifyCDC():
+    scrapeRt()
+    plotRt()
+    modifyRt()
+
+def scrapeRt():
     
-    # make instance of Beautiful soup class
-    soup = BeautifulSoup(open("../_includes/plotCDCdata_test.html"), features='html.parser')
+    global RtData
+    plotData = pd.read_csv('https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv')
+    
+    # obtain most recent date
+    mostRecentDate = plotData['date'].max()
+    
+    # filter by most recent date
+    plotData = plotData[plotData['date'] == mostRecentDate]
+    
+    # sort by minimum to maximum rt values
+    RtData = plotData.sort_values(by=['median'])
+    
+def plotRt():
+    
+    # plot data
+    fig = go.Figure(data=go.Scatter(x=RtData['region'], y=RtData['median'], mode='markers',
+            # marker colots                        
+            marker=dict(size=15,color=(RtData['median'] < 1).astype('int'), 
+                        colorscale=[[0, 'rgb(220, 50, 32)'], [1, 'rgb(0, 90, 181)']]),
+            # error bar            
+            error_y=dict(type='data', symmetric=False, 
+                         array= RtData['upper_50'] - RtData['median'],
+                         arrayminus= RtData['median'] -RtData['lower_50'])))
+                                    
+    
+    # Plot layout settings
+    fig.update_layout(
+            title='COVID-19 Effective Reproduction Rate (R<sub>t</sub>) by State',
+            title_x=0.5,
+            xaxis_title = 'State',
+            yaxis = dict(range = [0,2]),
+            yaxis_title = 'Effective Reproduction Rate (R<sub>t</sub>)',
+            font = dict(size = 24),
+            height=800,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            margin=dict(r=0)
+            )
+    
+    # Add gridlines
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray', 
+                     showline=True, linewidth=2, linecolor='black',)
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black',
+                     tickfont=dict(size=16))
+    
+    # Add horizontal line
+    fig.add_shape(
+        # Horizontal Line
+        go.layout.Shape(
+            type="line",
+            x0=0,
+            y0=1,
+            x1=1,
+            y1=1,
+            xref='paper',
+            yref='y',
+            line=dict(
+                color="Black",
+                width=2,
+                dash='dash'
+            )))
+
+    fig.write_image("../Images_Plotly/RtPlotly.png",width=1200, height=800, scale=2)
+    
+def modifyRt():
+    
+    soup = BeautifulSoup(open("../_includes/plotRt.html"), features='html.parser')
     
     # Update values in graphics accelerator
     target = soup.find_all(text=re.compile("valuesCount"))
-    
+
     # values to update
-    newValuesCount = len(CDCTestData) * 2
+    newValuesCount = RtData['region'].size
     newNobs = newValuesCount
-    dates = [element[0] for element in CDCTestData]
-    CDCLabTests = [int(element[1].split('‡')[0]) for element in CDCTestData]
-    PublicLabTests = [int(element[2].split('§')[0]) for element in CDCTestData]
-    newMin = min(min(CDCLabTests), min(PublicLabTests))
-    newMax = max(max(CDCLabTests), max(PublicLabTests))
+    newMin = RtData['median'].min()
+    newMax = RtData['median'].max()
     newData = ''
     dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
     dataEndStr = '</ValuesList>'
     dataWindow = dataStartStr + '.*?' + dataEndStr
     
     # Data value string
-    for i in range(len(CDCLabTests)):
-        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(CDCLabTests[i]) + '</V><V>CDC Labs</V>'
-        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(PublicLabTests[i]) + '</V><V>US Public Health Labs</V>'
-    
+    for i in range(RtData['region'].size):
+        newData = newData + '<V>' + str(RtData['region'].iloc[i]) + '</V><V>' + str(RtData['median'].iloc[i]) + '</V>'    
 
     for v in target:
         #replace valuesCount, nobs, min, max
@@ -64,10 +128,13 @@ def modifyCDC():
         target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
         v.replace_with(target_new)        
     
-    with open("../_includes/plotCDCdata.html", "wb") as f_output:
+    with open("../_includes/plotRt.html", "wb") as f_output:
         f_output.write(soup.prettify("utf-8")) 
-    
+        
 def scrapeCDC():
+    
+    # configure webdriver
+    driver = webdriver.Chrome("/usr/local/bin/chromedriver")
     
     # open up CDC website
     driver.get("https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/testing-in-us.html")
@@ -159,7 +226,47 @@ def plotCDC():
 #        default_width = '110%',
 #        default_height = '100%',
 #        )
+
+def modifyCDC():
     
+    # make instance of Beautiful soup class
+    soup = BeautifulSoup(open("../_includes/plotCDCdata.html"), features='html.parser')
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+    
+    # values to update
+    newValuesCount = len(CDCTestData) * 2
+    newNobs = newValuesCount
+    dates = [element[0] for element in CDCTestData]
+    CDCLabTests = [int(element[1].split('‡')[0]) for element in CDCTestData]
+    PublicLabTests = [int(element[2].split('§')[0]) for element in CDCTestData]
+    newMin = min(min(CDCLabTests), min(PublicLabTests))
+    newMax = max(max(CDCLabTests), max(PublicLabTests))
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(len(CDCLabTests)):
+        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(CDCLabTests[i]) + '</V><V>CDC Labs</V>'
+        newData = newData + '<V>' + str(dates[i]) + '</V><V>' + str(PublicLabTests[i]) + '</V><V>US Public Health Labs</V>'
+    
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotCDCdata.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
     
 
 if __name__ == '__main__':
