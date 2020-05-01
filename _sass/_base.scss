@@ -175,6 +175,12 @@ main {
   }
 }
 
+@media (max-width: 767px) {
+  .dropdown-menu >li>a {
+    color: white;
+  }
+}
+
 .bg-primary {
     background-color: $theme-background;
 }
