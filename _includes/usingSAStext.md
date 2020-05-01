@@ -10,5 +10,6 @@ To explore a chart or graph:
 5. Press V until you hear "Scan Mode", then press an arrow key to play the entire chart or graph.
 6. Press D to change speed.
 7. If the chart or graph contains grouped data, press G to change groups.
-8. Press S to play multiple groups as a chord or melody.
-9. Press H for additional commands.
+8. Press C to cycle through settings for spoken number and text values.
+9. Press S to play multiple groups as a chord or melody.
+10. Press H for additional commands.
