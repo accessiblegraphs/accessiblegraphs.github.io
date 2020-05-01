@@ -12,7 +12,7 @@ This graph has two curve lines and one constant flat line. Since it's a metaphor
 
 {% include plotFlattenTheCurve.html %}
 
-{% include form.html %}
+{% include questionform.html %}
 
 ## Articles In The Media
 

@@ -13,7 +13,7 @@ According to the CDC website, public health laboratories using CDC tests are no 
 
 {% include plotCDCdata.html %}
 
-{% include form.html %}
+{% include questionform.html %}
 
 {% include tableData.html %}
 

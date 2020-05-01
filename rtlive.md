@@ -13,6 +13,6 @@ The effective reproduction rate (Rt) is a metric used by epidemiologists to meas
 
 {% include plotRt.html %}
 
-{% include form.html %}
+{% include questionform.html %}
 
 {% include tableData.html %}

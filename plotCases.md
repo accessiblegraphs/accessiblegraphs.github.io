@@ -18,7 +18,7 @@ Semi-logarithmic graphs, instead, show y-axis values to be logarithmically space
 
 {% include plotCasesLog.html %}
 
-{% include form.html %}
+{% include questionform.html %}
 
 {% include tableData.html %}
 

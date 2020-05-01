@@ -53,6 +53,18 @@ main {
     padding-top: 80px;
 }
 
+.btn-info {
+  background-color: $theme-primary;
+}
+
+.pagination > .active > a {
+  background-color: $theme-primary;
+}
+
+.pagination > li > a {
+  color: $theme-primary;
+}
+
 .controls-row {
   margin-bottom: 15px;
 }
@@ -77,6 +89,8 @@ main {
   bottom: 0;
   width: 100%;
   margin-top: $footer-margin;
+  padding-top: 30px;
+  border-top: 1.5px solid $theme-highlight;
   height: $footer-height;
   background-color: WhiteSmoke; //#f5f5f5;
 }
