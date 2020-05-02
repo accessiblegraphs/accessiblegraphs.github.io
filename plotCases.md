@@ -2,6 +2,7 @@
 layout: default
 title: 'Global Evolution of Covid-19 Cases'
 dataset: 'GlobalTimeSeries'
+lastUpdated: 'April 30, 2020'
 ---
 
 The evolution of Covid-19 cases is shown for select countries in arithmetic and logarithmic graphs below. The data is updated daily with the [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19).

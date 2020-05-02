@@ -16,6 +16,12 @@
 				<div class="col-lg-8 col-lg-offset-2">
 
 					{{ content }}
+
+					{% if page.lastUpdated %}
+						<div class="lastUpdated">
+							<p>Last Updated: {{ page.lastUpdated }}</p>
+						</div>
+					{% endif %}
 				    
 				</div>
 			</div>

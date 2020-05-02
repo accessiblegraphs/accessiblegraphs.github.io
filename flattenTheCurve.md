@@ -2,6 +2,7 @@
 layout: default
 title: 'Flatten The Curve'
 plot: 'plotFlattenTheCurve'
+lastUpdated: 'April 30, 2020'
 ---
 
 “Flatten the curve” has become the mantra of the global effort towards mitigating and containing the COVID-19 pandemic. It’s a powerful and immensely valuable metaphor, that helps people understand why mitigation is necessary to save lives.
