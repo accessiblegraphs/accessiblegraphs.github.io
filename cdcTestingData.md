@@ -20,5 +20,7 @@ According to the CDC website, public health laboratories using CDC tests are no 
 
 {% include tableData.html %}
 
+§ indicates that incomplete data because of the lag in time between when specimens are accessioned, testing is performed, and results are reported.
+
 
 

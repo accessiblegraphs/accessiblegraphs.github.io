@@ -17,3 +17,5 @@ The effective reproduction rate (Rt) is a metric used by epidemiologists to meas
 {% include questionform.html %}
 
 {% include tableData.html %}
+
+The table contains columns titled "lower_50" and "upper_50." According to the original authors of this model, the model is 50 percent sure the true Rt value lies within this window. Likewise, the model is 90 percent sure the true value Rt lies within "lower_90" and "upper_90" window.

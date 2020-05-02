@@ -41,6 +41,9 @@ def scrapeRt():
     # filter by most recent date
     plotData = plotData[plotData['date'] == mostRecentDate]
     
+    # update csv
+    plotData.to_csv('../Dataset/rt.csv', float_format='%.2f',index=False)
+    
     # sort by minimum to maximum rt values
     RtData = plotData.sort_values(by=['median'])
     
@@ -158,6 +161,15 @@ def scrapeCDC():
     # store all values in CDCTestData Array
     global CDCTestData 
     CDCTestData = [values[i:i+3] for i in range(0, len(values), 3)]
+    
+    # turn array into pandas dataframe
+    CDCTestDf = pd.DataFrame(data=CDCTestData, columns=["Date","CDC Lab Tests","Public Lab Tests"])
+    
+    # sort by most recent date first
+    CDCTestDf = CDCTestDf.sort_values(by=['Date'], ascending=False)
+    
+    # update csv
+    CDCTestDf.to_csv('../Dataset/CDC_TestData.csv',index=False)
 
     driver.quit()
 
@@ -171,8 +183,8 @@ def plotCDC():
 
     # Obtian array of relevant plot series
     dates = [element[0] for element in CDCTestData]
-    CDCLabTests = [int(element[1].split('‡')[0]) for element in CDCTestData]
-    PublicLabTests = [int(element[2].split('§')[0]) for element in CDCTestData]
+    CDCLabTests = [toInt(element[1].split('‡')[0]) for element in CDCTestData]
+    PublicLabTests = [toInt(element[2].split('§')[0]) for element in CDCTestData]
     
     # Plot CDC graph
     fig = go.Figure()
@@ -239,8 +251,8 @@ def modifyCDC():
     newValuesCount = len(CDCTestData) * 2
     newNobs = newValuesCount
     dates = [element[0] for element in CDCTestData]
-    CDCLabTests = [int(element[1].split('‡')[0]) for element in CDCTestData]
-    PublicLabTests = [int(element[2].split('§')[0]) for element in CDCTestData]
+    CDCLabTests = [toInt(element[1].split('‡')[0]) for element in CDCTestData]
+    PublicLabTests = [toInt(element[2].split('§')[0]) for element in CDCTestData]
     newMin = min(min(CDCLabTests), min(PublicLabTests))
     newMax = max(max(CDCLabTests), max(PublicLabTests))
     newData = ''
@@ -268,6 +280,13 @@ def modifyCDC():
     with open("../_includes/plotCDCdata.html", "wb") as f_output:
         f_output.write(soup.prettify("utf-8")) 
     
+# to hande if plotted value us empty
+def toInt(n):
+    try: 
+        return int(n)
+    except:
+        return 0
+
 
 if __name__ == '__main__':
     main()
