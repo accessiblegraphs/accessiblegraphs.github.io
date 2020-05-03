@@ -14,11 +14,12 @@ import plotly.graph_objects as go
 from plotly.offline import plot
 import re
 import pandas as pd
-from datetime import datetime
+import time
 
 # Module variables
 CDCTestData = []
 RtData = []
+JHGlobal = []
 
 def main():
     
@@ -29,6 +30,208 @@ def main():
     scrapeRt()
     plotRt()
     modifyRt()
+    
+    scrapeJHGlobal()
+    plotJHGlobal() 
+    modifyJHGlobal()
+    
+   
+
+def scrapeJHGlobal():
+        
+    # scrapeJHGlobal()
+    plotData = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    
+    # filter by China, US, Italy   
+    plotData = plotData[plotData['Country/Region'].isin(['US', 'Italy', 'China'])]
+
+    # sum values of same country
+    plotData = plotData.groupby('Country/Region').sum()
+
+    # filter latitude and longitude columns
+    plotData = plotData.drop(['Lat', 'Long'], axis=1)
+
+    global JHGlobal
+
+    # transpose data to categorize by country
+    JHGlobal = plotData.transpose()
+    
+    # make copy of dataframe with most recent date first
+    JHGlobal_Rev = JHGlobal.sort_index(ascending=False)
+    
+    # update csv
+    JHGlobal_Rev.to_csv('../Dataset/GlobalTimeSeries.csv' ,index=True)
+    
+    # calculate logarithmic data
+    JHGlobal['log10US'] = np.log10(JHGlobal['US'])
+    JHGlobal['log10China'] = np.log10(JHGlobal['China'])
+    JHGlobal['log10Italy'] = np.log10(JHGlobal['Italy'])   
+    
+    # replace inf with 0
+    JHGlobal = JHGlobal.replace(-np.inf,0)
+    
+def plotJHGlobal():
+
+    ######################## Plot Linear Cases ############################
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=JHGlobal.index, name='China', y=JHGlobal['China'],
+                             line=dict(color='red', width=4, dash='longdash')))
+    fig.add_trace(go.Scatter(x=JHGlobal.index, name='Italy', y=JHGlobal['Italy'],
+                             line=dict(color='green', width=4, dash='dashdot')))
+    fig.add_trace(go.Scatter(x=JHGlobal.index, name='US', y=JHGlobal['US'], 
+                             line=dict(color='blue', width=4, dash='solid')))
+    
+     # Plot layout settings
+    fig.update_layout(
+            title='Confirmed Covid-19 Cases',
+            title_x=0.5,
+            xaxis_title = 'Date',
+            yaxis_title = 'Confirmed Covid-19 Cases',
+            font = dict(size = 20),
+            height=1000,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            legend_orientation="h",
+            legend=dict(x=-.1, y=-0.2),
+            bargap=0.01, # gap between bars of adjacent location coordinates.
+            bargroupgap=0, # gap between bars of the same location coordinate.
+            margin=dict(r=10)
+            )
+    
+    # grid on, number format to digits
+    fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='gray')
+    
+    # save to jpg
+    fig.write_image("../Images_Plotly/GlobalArith.png",width=1200, height=800, scale=2) 
+    
+    ######################## Plot Log Cases ############################
+
+    fig2 = go.Figure()
+    fig2.add_trace(go.Scatter(x=JHGlobal.index, name='China', y=JHGlobal['China'],
+                              line=dict(color='red', width=4, dash='longdash')))
+    fig2.add_trace(go.Scatter(x=JHGlobal.index, name='Italy', y=JHGlobal['Italy'],
+                              line=dict(color='green', width=4, dash='dashdot')))
+    fig2.add_trace(go.Scatter(x=JHGlobal.index, name='US', y=JHGlobal['US'],
+                              line=dict(color='blue', width=4, dash='solid')))
+    
+    # Plot layout settings
+    fig2.update_layout(
+            yaxis_type="log",
+            title='Confirmed Covid-19 Cases',
+            title_x=0.5,
+            xaxis_title = 'Date',
+            yaxis_title = 'Confirmed Covid-19 Cases',
+            font = dict(size = 20),
+            height=1000,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            legend_orientation="h",
+            legend=dict(x=-.1, y=-0.2),
+            bargap=0.01, # gap between bars of adjacent location coordinates.
+            bargroupgap=0, # gap between bars of the same location coordinate.
+            margin=dict(r=10)
+            )
+    
+    # grid on, number format to digits
+    fig2.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='lightgray')
+    
+    # save to jpg
+    fig2.write_image("../Images_Plotly/GlobalLog.png",width=1200, height=800, scale=2)
+    
+def modifyJHGlobal():
+
+    ######################## Modify Linear Cases ############################
+    
+    soup = BeautifulSoup(open("../_includes/plotCasesLinear.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotCasesLinear" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+
+    # values to update
+    newValuesCount = JHGlobal.index.size* 3
+    newNobs = newValuesCount
+    newMin = min(JHGlobal['China'].min(), JHGlobal['Italy'].min(), JHGlobal['US'].min())
+    newMax = max(JHGlobal['China'].max(), JHGlobal['Italy'].max(), JHGlobal['US'].max())
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(JHGlobal.index.size):
+        newData = (newData + '<V>' + 
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['US'].iloc[i]) + 
+                   '</V><V>' + 'US' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['China'].iloc[i]) + 
+                   '</V><V>' + 'China' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['Italy'].iloc[i]) + 
+                   '</V><V>' + 'Italy' + '</V>')
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotCasesLinear.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
+    
+    ######################## Modify Log Cases ############################
+
+    soup = BeautifulSoup(open("../_includes/plotCasesLog.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotCasesLog" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
+        
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+
+    # values to update
+    newValuesCount = JHGlobal.index.size* 3
+    newNobs = newValuesCount
+    newMin = min(JHGlobal['log10China'].min(), JHGlobal['log10Italy'].min(), JHGlobal['log10US'].min())
+    newMax = max(JHGlobal['log10China'].max(), JHGlobal['log10Italy'].max(), JHGlobal['log10US'].max())
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(JHGlobal.index.size):
+        newData = (newData + '<V>' + 
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['log10US'].iloc[i]) + 
+                   '</V><V>' + 'log10(US)' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['log10China'].iloc[i]) + 
+                   '</V><V>' + 'log10(China)' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['log10Italy'].iloc[i]) + 
+                   '</V><V>' + 'log10(Italy)' + '</V>')
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotCasesLog.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
 
 def scrapeRt():
     
@@ -102,6 +305,11 @@ def plotRt():
 def modifyRt():
     
     soup = BeautifulSoup(open("../_includes/plotRt.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotRt" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
     
     # Update values in graphics accelerator
     target = soup.find_all(text=re.compile("valuesCount"))
@@ -227,7 +435,9 @@ def plotCDC():
                 layer="below",
                 line_width=0,
         )])
-    fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='black', tickformat = "digit",)
+    
+    # gridlines on, number format to digits
+    fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='black', tickformat = "digit")
         
     fig.write_image("../Images_Plotly/CDCTestingPlotly.png",width=1200, height=1000, scale=2)
     
@@ -243,6 +453,11 @@ def modifyCDC():
     
     # make instance of Beautiful soup class
     soup = BeautifulSoup(open("../_includes/plotCDCdata.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotCDCdata" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8"))
     
     # Update values in graphics accelerator
     target = soup.find_all(text=re.compile("valuesCount"))
