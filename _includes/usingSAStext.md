@@ -5,11 +5,12 @@ SAS Graphics Accelerator enables users with blindness to perceive many types of 
 To explore a chart or graph:
 1. Open Google Chrome.
 2. Install [SAS Graphics Accelerator for Google Chrome](https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko) from the Chrome Web Store.
-3. Open a chart or graph and activate the Accelerate button.
-4. Press V until you hear "Explore Mode", then press an arrow key to explore point by point.
-5. Press V until you hear "Scan Mode", then press an arrow key to play the entire chart or graph.
-6. Press D to change speed.
-7. If the chart or graph contains grouped data, press G to change groups.
-8. Press C to cycle through settings for spoken number and text values.
-9. Press S to play multiple groups as a chord or melody.
-10. Press H for additional commands.
+3. Open a chart or graph page and activate the Accelerate button.
+4. Press G to cycle between data groups displayed on the graph.
+5. Press V until you hear "Explore Mode", then press the left/right arrow keys to explore point by point.
+6. Press V until you hear "Scan Mode", then press the left/right arrow keys to play the entire chart or graph.
+7. Press D to change speed.
+8. If the chart or graph contains grouped data, press G to change groups.
+9. Press C to cycle through settings for spoken number and text values (verbose vs. terse).
+10. Press S to play multiple groups as a chord or melody.
+11. Press H for additional commands.
