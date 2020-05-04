@@ -13,7 +13,7 @@ People are generally much more familiar with arithmetic graphs, where the x-axis
 
 Semi-logarithmic graphs, instead, show y-axis values to be logarithmically spaced and are often used to visualize relative or percent changes over time. Equal distances in height correspond to equal ratios of confirmed cases in the semi-logarithmic graph. If the number of confirmed doubled each day, the graph would show a straight increasing line, and if the number of confirmed cases tripled each day, the graph would show an even steeper increasing line. In other words, the slope of the curve (change in confirmed cases over the change in time) is related to how quickly the confirmed cases multiply. 
 
-## How to Explore Using SAS
+## How to Explore This Graph With SAS
 Use keyboard shortcut G to cycle between countries (US, China, Italy). Set the Speech setting (Keyboard Shortcut C) to Terse. Use Keyboard Shortcut V to cycle between Scan and Explore mode. Use the right/left arrow keys to sweep left and right along the x-axis of the graph. Use keyboard shortcut S to cycle between chord and melody. 
 
 {% include graphInstructions.html %}

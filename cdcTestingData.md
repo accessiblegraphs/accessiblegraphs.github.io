@@ -12,7 +12,7 @@ Widespread Covid-19 testing is crucial for many reasons. Testing helps healthcar
 
 According to the CDC website, public health laboratories using CDC tests are no longer required to submit samples to CDC for confirmation beginning March 14th, 2020. The CDC is focusing on other ways to support public health.
 
-## How to Explore Using SAS
+## How to Explore This Graph With SAS
 Use keyboard shortcut G to cycle between data points for US Public Health Labs and CDC Labs. Set Speech (Keyboard Shortcut C) to Terse. Use Keyboard Shortcut V to cycle between Scan and Explore mode. Use the right/left arrow keys to sweep left and right along the x-axis of the graph. Use keyboard shortcut S to cycle between chord and melody.
 
 {% include graphInstructions.html %}
