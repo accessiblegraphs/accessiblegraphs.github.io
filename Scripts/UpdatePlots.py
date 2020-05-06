@@ -253,7 +253,8 @@ def scrapeRt():
 def plotRt():
     
     # plot data
-    fig = go.Figure(data=go.Scatter(x=RtData['region'], y=RtData['median'], mode='markers',
+    fig = go.Figure(data=go.Scatter(x=RtData['region'], y=RtData['median'], mode='markers', 
+        name='50% confidence inteval shown',
             # marker colots                        
             marker=dict(size=15,color=(RtData['median'] < 1).astype('int'), 
                         colorscale=[[0, 'rgb(220, 50, 32)'], [1, 'rgb(0, 90, 181)']]),
@@ -274,7 +275,10 @@ def plotRt():
             height=800,
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            margin=dict(r=0)
+            margin=dict(r=0),
+            legend_orientation="h",
+            legend=dict(x=-.1, y=-0.2),
+            showlegend=True
             )
     
     # Add gridlines
