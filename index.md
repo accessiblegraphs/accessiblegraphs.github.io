@@ -1,5 +1,5 @@
 ---
-title: 'Accessible Graphics'
+title: 'Accessible Data'
 layout: default
 ---
 

@@ -1,7 +1,7 @@
 # Site settings
-title:
-email:
-description: > # this means to ignore newlines until "baseurl:"
+title: 'Accessible Data'
+email: 'afsiu@stanford.edu'
+description: 'Repository for multimodal data representations.'
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "" # the base hostname & protocol for your site
 
