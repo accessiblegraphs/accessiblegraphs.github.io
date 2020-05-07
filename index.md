@@ -5,7 +5,7 @@ layout: default
 
 <img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt=""> 
 
-The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics pertaining to the COVID-19 health crisis. It is continuously being updated and we are expanding on the library of graphics available. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS graphics acelerator]({% link usingSAS.md %}).
+The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics about the COVID-19 health crisis. We are continuously updating the site and expanding on the library of graphics available. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS Graphics Accelerator]({% link usingSAS.md %}).
 
 ## List of data graphics available:
 * [Flatten the Curve]({% link flattenTheCurve.md %})
@@ -16,7 +16,7 @@ The Accessible Graphics project was launched as a platform to provide important 
 Have a plot you want to see but is not here? [Send us a suggestion]({% link contact.md %}). 
 
 ## Project Data Collection
-Through this project we are also interested in understanding the strengths and limitations of existing technologies in providing effective alternative representations. We are gathering feedback to improve how we present the graphics and to support the design of multimodal visualization libraries. Each visualization has an option to submit questions you may have about the graphic or data. Human volunteers will be answering questions. You may opt to receive an email alert when someone has posted an answer. Last, we are also collecting more general information on multimodal data literacy and the state of media accessibility. [Visit our survey]({% link survey.md %}) to learn more or participate.
+We are also interested in understanding the strengths and limitations of existing technologies in providing effective alternative representations. We are gathering feedback to improve how we present the graphics and to support the design of multimodal visualization libraries. Each visualization has an option to submit questions you may have about the graphic or data. Human volunteers will be answering questions. You may opt to receive an email alert when someone has posted an answer. Last, we are also collecting more general information on multimodal data literacy and the state of media accessibility. [Visit our survey]({% link survey.md %}) to learn more or participate.
 
 ## Datasets In Use
 * [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19)
