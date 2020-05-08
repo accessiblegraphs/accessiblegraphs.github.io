@@ -114,6 +114,61 @@
     return true;
   
   }
+
+
+  function handleFormSendComment(event) {  // handles form submit without any jquery
+
+
+    event.preventDefault();           // we are submitting via xhr below
+    var form = event.target;
+    var formData = getFormData(form);
+    var data = formData.data;
+
+    if (!checkValidComment(formData)) {
+      console.log("bad submission");
+      return false;
+    }
+
+    disableSendButtons(form);
+
+    console.log("here");
+    
+    var url = form.action;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    // xhr.withCredentials = true;
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          
+          form.reset();
+          
+          var formElements = form.querySelector(".form-elements")
+          if (formElements) {
+            formElements.style.display = "none"; // hide form
+          }
+          
+          alert('We appreciate your feedback and comments.');
+          
+        }
+    };
+    // url encode form data for sending as post data
+    var encoded = Object.keys(data).map(function(k) {
+        return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
+    }).join('&');
+    xhr.send(encoded);
+    
+  }
+
+  function checkValidComment(formData) {
+
+    // Question is required
+    if (!formData.data.comment) {
+      return false;
+    }
+    return true;
+  
+  }
   
   function loaded() {
     // bind to the submit event of our form
@@ -121,7 +176,14 @@
     for (var i = 0; i < forms.length; i++) {
       forms[i].addEventListener("submit", handleFormSubmit, false);
     }
+
+    var forms = document.querySelectorAll("form.gformComment");
+    for (var i = 0; i < forms.length; i++) {
+      forms[i].addEventListener("send", handleFormSendComment, false);
+    }
+
   };
+
   document.addEventListener("DOMContentLoaded", loaded, false);
 
   function disableAllButtons(form) {
@@ -131,4 +193,21 @@
     }
   }
 
+  function disableSendButtons(form) {
+    var buttons = form.querySelectorAll("#commentButton");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+    }
+  }
+
 })();
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,6 @@
   Tell us what question you have and what modality you used to explore the data (audio, visual, both). Human volunteers will provide answers. We will post answers here after May 30 or you may provide an email to receive an alert when your question has been answered.
 </p>
 
-<!-- data-email="example@email.net"  -->
 <form aria-label="{{ page.title }}" 
       class="gform pure-form pure-form-stacked" method="POST"
       action="https://script.google.com/macros/s/AKfycbxmXXdV4OMHci_NA-EeOMtqG2CXXPAa77gLyta6/exec">
@@ -44,7 +43,7 @@
     <input id="plot" name="plot" type="text" class="form-control" placeholder="Plot Name" value="{{ page.title }}">
   </div>  
 
-  <button type="submit" id="submit">Submit</button>
+  <button class="btn btn-info" type="submit" id="submit">Submit</button>
 
   <div aria-live="assertive" class="thankyou_message" id="displayQA" style="display:none;" tabindex="0"> 
       <h2>Submitted Q&A</h2>

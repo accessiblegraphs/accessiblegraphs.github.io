@@ -71,12 +71,36 @@ main {
   }
 }
 
-.lastUpdated {
-  margin-top: 30px;
-}
-
 .btn-info {
   background-color: $theme-primary;
+}
+
+.btn {
+  height: 40px;
+}
+
+#comment {
+  width: 80%;
+  display: inline-block;
+}
+
+#commentButton {
+  width: 10%;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.lastUpdated {
+  margin-top: 30px;
 }
 
 .pagination > .active > a {
