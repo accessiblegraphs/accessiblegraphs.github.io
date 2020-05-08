@@ -5,9 +5,13 @@
 
 <body>
 
+    <a id='skip-nav' class='screenreader-text' href='#main'>
+      Skip to Main Content
+    </a>
+
 	{% include nav.html %}
 
-	<main>
+	<main id="main" role="main" tabindex="-1">
 
 		{% include title-group.html %}
 

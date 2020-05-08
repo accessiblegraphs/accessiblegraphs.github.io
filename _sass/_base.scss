@@ -48,6 +48,29 @@ main {
     padding-top: 80px;
 }
 
+.screenreader-text {
+  position: absolute;
+  left: -999px;
+  width:1px;
+  height: 1px;
+  top: auto;
+  color: $theme-primary;
+  background-color: white;
+
+  &:focus {
+  // color: $theme-primary;
+  // background-color: white;
+  // text-decoration: underline;
+  // text-decoration-color: $theme-highlight;
+  // text-decoration-thickness: 3px;
+    display: inline-block;
+    height: auto;
+    width: auto;
+    position: static;
+    margin: auto;
+  }
+}
+
 .lastUpdated {
   margin-top: 30px;
 }
