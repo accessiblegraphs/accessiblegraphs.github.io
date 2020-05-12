@@ -57,10 +57,10 @@
     var formData = getFormData(form);
     var data = formData.data;
 
-    if (!checkValidSubmission(formData)) {
-      // console.log("bad submission");
-      return false;
-    }
+    // if (!checkValidSubmission(formData)) {
+    //   // console.log("bad submission");
+    //   return false;
+    // }
 
     // If a honeypot field is filled, assume it was done so by a spam bot.
     if (formData.honeypot) {
