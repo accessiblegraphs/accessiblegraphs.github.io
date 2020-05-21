@@ -23,13 +23,13 @@ JHGlobal = []
 
 def main():
     
-    scrapeCDC()
-    plotCDC()
-    modifyCDC()
+    #scrapeCDC()
+    #plotCDC()
+    #modifyCDC()
 
-    scrapeRt()
-    plotRt()
-    modifyRt()
+    #scrapeRt()
+    #plotRt()
+    #modifyRt()
     
     scrapeJHGlobal()
     plotJHGlobal() 
@@ -56,22 +56,67 @@ def scrapeJHGlobal():
     # transpose data to categorize by country
     JHGlobal = plotData.transpose()
     
-    # make copy of dataframe with most recent date first
-    JHGlobal_Rev = JHGlobal.sort_index(ascending=False)
-    
-    # update csv
-    JHGlobal_Rev.to_csv('../Dataset/GlobalTimeSeries.csv' ,index=True)
-    
     # calculate logarithmic data
     JHGlobal['log10US'] = np.log10(JHGlobal['US'])
     JHGlobal['log10China'] = np.log10(JHGlobal['China'])
-    JHGlobal['log10Italy'] = np.log10(JHGlobal['Italy'])   
+    JHGlobal['log10Italy'] = np.log10(JHGlobal['Italy'])  
+    
+    # calculate delta
+    JHGlobal['New Daily US Cases'] = JHGlobal['US'] - JHGlobal['US'].shift(1)
+    JHGlobal['New Daily China Cases'] = JHGlobal['China'] - JHGlobal['China'].shift(1)
+    JHGlobal['New Daily Italy Cases'] = JHGlobal['Italy'] - JHGlobal['Italy'].shift(1)
+    
+    # make copy of dataframe with most recent date first
+    JHGlobal_Rev = JHGlobal.sort_index(ascending=False)
+    
+    # update csv output columns
+    JHGlobal_Rev['Total Confirmed Cases US'] = JHGlobal_Rev['US']
+    JHGlobal_Rev['Total Confirmed Cases China'] = JHGlobal_Rev['China']
+    JHGlobal_Rev['Total Confirmed Cases Italy'] = JHGlobal_Rev['Italy']
+    
+    # update csv
+    headers = ['Total Confirmed Cases US', 'Total Confirmed Cases China', 'Total Confirmed Cases Italy',
+            'New Daily US Cases', 'New Daily China Cases', 'New Daily Italy Cases']
+    JHGlobal_Rev.to_csv('../Dataset/GlobalTimeSeries.csv' ,index=True, columns = headers, float_format='%.0f')
     
     # replace inf with 0
     JHGlobal = JHGlobal.replace(-np.inf,0)
     
 def plotJHGlobal():
 
+    ######################## Plot New Cases ############################
+
+    # Plot New Cases (Bar Graph)
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=JHGlobal.index,y=JHGlobal['New Daily US Cases'], name='US', 
+                         marker_color='blue'))
+    fig.add_trace(go.Bar(x=JHGlobal.index,y=JHGlobal['New Daily China Cases'], name='China', 
+                         marker_color='red'))
+    fig.add_trace(go.Bar(x=JHGlobal.index,y=JHGlobal['New Daily Italy Cases'], name='Italy', 
+                         marker_color='green'))
+
+    # Plot layout settings
+    fig.update_layout(
+            title='New Daily Confirmed COVID-19 Cases',
+            title_x=0.5,
+            xaxis_title = 'Date',
+            yaxis_title = 'New Daily Confirmed COVID-19 Cases',
+            font = dict(size = 20),
+            height=1000,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            legend_orientation="h",
+            legend=dict(x=-.1, y=-0.2),
+            bargap=0.01, # gap between bars of adjacent location coordinates.
+            bargroupgap=0, # gap between bars of the same location coordinate.
+            margin=dict(r=10)
+            )
+    
+    # gridlines on, number format to digits
+    fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='black', tickformat = "digit")
+        
+    fig.write_image("../Images_Plotly/NewDailyCases.png",width=1200, height=1000, scale=2)
+    
     ######################## Plot Linear Cases ############################
 
     fig = go.Figure()
@@ -140,6 +185,56 @@ def plotJHGlobal():
     fig2.write_image("../Images_Plotly/GlobalLog.png",width=1200, height=800, scale=2)
     
 def modifyJHGlobal():
+    
+    
+    ######################## Modify New Cases ############################
+    
+    # make instance of Beautiful soup class
+    soup = BeautifulSoup(open("../_includes/plotNewCases.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotNewCases" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8"))
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+    
+    # values to update
+    newValuesCount = JHGlobal.index.size* 3
+    newNobs = newValuesCount
+    newMin = min(JHGlobal['New Daily US Cases'].min(), JHGlobal['New Daily China Cases'].min(), 
+                 JHGlobal['New Daily Italy Cases'].min())
+    newMax = max(JHGlobal['New Daily US Cases'].max(), JHGlobal['New Daily China Cases'].max(), 
+                 JHGlobal['New Daily Italy Cases'].max())
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(JHGlobal.index.size):
+        newData = (newData + '<V>' + 
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['New Daily US Cases'].iloc[i]) + 
+                   '</V><V>' + 'US' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['New Daily China Cases'].iloc[i]) + 
+                   '</V><V>' + 'China' + '</V><V>' +
+                   str(JHGlobal.index[i]) +  '</V><V>' + str(JHGlobal['New Daily Italy Cases'].iloc[i]) + 
+                   '</V><V>' + 'Italy' + '</V>')
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotNewCases.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
 
     ######################## Modify Linear Cases ############################
     

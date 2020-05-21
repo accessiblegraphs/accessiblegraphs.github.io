@@ -1,0 +1,80 @@
+{% include accelerateButton.html name="plotRt" %}
+<div>
+ <div>
+  <img alt="Bar plot showing the effective reproduction rate (y-axis) for each state (x-axis) in asending order. Access alternative presentations of this graph using the SAS Graphics Accelerator Button" id="graph" src="../Images_Plotly/RtPlotly.png"/>
+ </div>
+ <script class="ODSGraphics" type="application/xml">
+  <?xml version="1.0" encoding="utf-8" ?><SASReport version="1.2" xmlns:style="http://www.sas.com/sasreportmodel/styles"><Data version="sga3.2"><DataModel name="StatGraphDataModel"><IQData type="2DEmbedded" name="StatGraphData"><EmbeddedData><Variables><Variable name="VAR1" label="state" type="String" length="100" valuesCount="51"  /><Variable name="VAR2" label="Rt" type="Numeric" valuesCount="51" SASFormat="comma.2"  /></Variables><ValuesList valuesCount="51" ><V>AK</V><V>0.7014726707184548</V><V>MT</V><V>0.7350606234543506</V><V>MI</V><V>0.7465393626358651</V><V>LA</V><V>0.7496831703903162</V><V>VT</V><V>0.7661493029149474</V><V>OH</V><V>0.7812972690917891</V><V>HI</V><V>0.7934095745184859</V><V>NY</V><V>0.7976073099900871</V><V>CT</V><V>0.8065069347822922</V><V>SC</V><V>0.818557324513677</V><V>MA</V><V>0.8202841083037508</V><V>WV</V><V>0.8293442631105769</V><V>GA</V><V>0.8439178636753495</V><V>CA</V><V>0.8479924800760268</V><V>AZ</V><V>0.8541152065386961</V><V>RI</V><V>0.8566841896630537</V><V>MO</V><V>0.8574084525353542</V><V>TX</V><V>0.8588309657205067</V><V>NC</V><V>0.8697916880105918</V><V>ID</V><V>0.8766751992255688</V><V>NJ</V><V>0.8768134092455402</V><V>CO</V><V>0.8802716862511817</V><V>NV</V><V>0.8840281580648653</V><V>TN</V><V>0.8876231000854414</V><V>ND</V><V>0.8908975298586197</V><V>VA</V><V>0.8922010695397715</V><V>WA</V><V>0.8924405069003187</V><V>AL</V><V>0.9004507573369881</V><V>IL</V><V>0.9024526177711072</V><V>DE</V><V>0.9030146933931144</V><V>NM</V><V>0.9185963420233604</V><V>AR</V><V>0.9207323643583872</V><V>NH</V><V>0.927920139219512</V><V>PA</V><V>0.9310328255740222</V><V>FL</V><V>0.9320032929023172</V><V>IA</V><V>0.9328805203974234</V><V>KY</V><V>0.9401370432843854</V><V>OR</V><V>0.9498853031325772</V><V>IN</V><V>0.9507797570777928</V><V>OK</V><V>0.954232748277198</V><V>SD</V><V>0.9606757133320628</V><V>MS</V><V>0.9704870073305814</V><V>UT</V><V>0.9759091966717376</V><V>DC</V><V>0.9815468556152618</V><V>MD</V><V>0.983644944537538</V><V>WI</V><V>0.9852401910218148</V><V>KS</V><V>0.9990950258294904</V><V>ME</V><V>1.0160745153119954</V><V>NE</V><V>1.0175897432747916</V><V>WY</V><V>1.0483649925652618</V><V>MN</V><V>1.0542844181932387</V></ValuesList></EmbeddedData></IQData><VarStats><VarStat name="VAR2" modelName="statgraphdata1" nobs="51" min="0.7014726707184548" max="1.0542844181932387" /></VarStats></DataModel></Data><View><StatGraph subpixel="on" height="480" width="640" designHeight="480" style:style="StatGraphStyle" antiAlias="true" nBinsMax="10000" nXYBinsMax="100000" sessionLocale="en_US" missingOption="." notesOption="true" collation="binary" version="sga3.2"><EntryTitle><EntryItem>COVID-19 Effective Reproduction Rate (Rt) by State</EntryItem></EntryTitle><LayoutOverlay><XAxisOpts label="state"></XAxisOpts><YAxisOpts label="Rt"></YAxisOpts><BarChartParm category="statgraphdata1#VAR1" response="statgraphdata1#VAR2" stat="none" _stmt="barchart"></BarChartParm></LayoutOverlay></StatGraph></View></SASReport>
+ </script>
+</div>
+<div id="sas-sga-message">
+ <span id="downloadWindows">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Alt to move focus to the Chrome menu.
+     </li>
+     <li>
+      Use the arrow keys to navigate to More Tools &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+ <span id="downloadMac" style="display:none;">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Control-F2 to move focus to the menu bar.
+     </li>
+     <li>
+      Use the arrow keys to navigate to Window &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+</div>
+<script>
+ if(location.protocol.toLowerCase()!="file:"){document.querySelector("#file-url").parentNode.removeChild(document.querySelector("#file-url"));}if(navigator.platform.indexOf('Mac') === 0){document.getElementById('downloadMac').style.display='block';document.getElementById('downloadWindows').style.display='none';}document.addEventListener("SASGraphicsAccelerator-scan",function(e){graph.setAttribute("alt","COVID-19 Effective Reproduction Rate (Rt) by State");});function hcShim(elem){elem.textContent = elem.textContent.replace(/src\*\=\"jp/g, "src$=\"jp");}if(document.querySelector("#hc_style") !== null){hcShim(hc_style);}else{document.head.addEventListener("DOMNodeInserted", function(e){if(e.target.id === "hc_style"){hcShim(hc_style);}});}
+</script>
