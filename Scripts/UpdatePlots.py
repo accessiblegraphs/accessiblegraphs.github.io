@@ -471,10 +471,10 @@ def scrapeCDC():
     
     # turn array into pandas dataframe
     CDCTestDf = pd.DataFrame(data=CDCTestData, columns=["Date","CDC Lab Tests","Public Lab Tests"])
-    
+        
     # sort by most recent date first
-    CDCTestDf = CDCTestDf.sort_values(by=['Date'], ascending=False)
-    
+    CDCTestDf = CDCTestDf.reindex(index=CDCTestDf.index[::-1])
+
     # update csv
     CDCTestDf.to_csv('../Dataset/CDC_TestData.csv',index=False)
 
