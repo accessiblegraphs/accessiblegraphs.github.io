@@ -23,13 +23,13 @@ JHGlobal = []
 
 def main():
     
-    #scrapeCDC()
-    #plotCDC()
-    #modifyCDC()
+    scrapeCDC()
+    plotCDC()
+    modifyCDC()
 
-    #scrapeRt()
-    #plotRt()
-    #modifyRt()
+    scrapeRt()
+    plotRt()
+    modifyRt()
     
     scrapeJHGlobal()
     plotJHGlobal() 
@@ -447,7 +447,7 @@ def scrapeCDC():
     driver = webdriver.Chrome("/usr/local/bin/chromedriver")
     
     # open up CDC website
-    driver.get("https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/testing-in-us.html")
+    driver.get("https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/previous-testing-in-us.html")
     
     # get page source
     pageSource = driver.page_source
@@ -483,10 +483,10 @@ def scrapeCDC():
 def plotCDC():
     
     # Find first index of ‡ symbol
-    indices_pp = min([i for i, elem in enumerate(CDCTestData) if any('‡' in sublist for sublist in elem)])
+    #indices_pp = min([i for i, elem in enumerate(CDCTestData) if any('‡' in sublist for sublist in elem)])
     
     # Find first index of § symbol
-    indices_squig = min([i for i, elem in enumerate(CDCTestData) if any('§' in sublist for sublist in elem)])
+    #indices_squig = min([i for i, elem in enumerate(CDCTestData) if any('§' in sublist for sublist in elem)])
 
     # Obtian array of relevant plot series
     dates = [element[0] for element in CDCTestData]
@@ -516,24 +516,24 @@ def plotCDC():
             )
             
     # Add shaded uncertainty region
-    fig.update_layout(
-        shapes=[
-            # 1st highlight during Feb 4 - Feb 6
-            dict(
-                type="rect",
-                # x-reference is assigned to the x-values
-                xref="x",
-                # y-reference is assigned to the plot paper [0,1]
-                yref="paper",
-                x0=dates[indices_squig],
-                y0=0,
-                x1=dates[len(dates)-1],
-                y1=1,
-                fillcolor="lightgray",
-                opacity=0.5,
-                layer="below",
-                line_width=0,
-        )])
+#    fig.update_layout(
+#        shapes=[
+#            # 1st highlight during Feb 4 - Feb 6
+#            dict(
+#                type="rect",
+#                # x-reference is assigned to the x-values
+#                xref="x",
+#                # y-reference is assigned to the plot paper [0,1]
+#                yref="paper",
+#                x0=dates[indices_squig],
+#                y0=0,
+#                x1=dates[len(dates)-1],
+#                y1=1,
+#                fillcolor="lightgray",
+#                opacity=0.5,
+#                layer="below",
+#                line_width=0,
+#        )])
     
     # gridlines on, number format to digits
     fig.update_yaxes(showgrid = True, gridwidth = 1, gridcolor='black', tickformat = "digit")
