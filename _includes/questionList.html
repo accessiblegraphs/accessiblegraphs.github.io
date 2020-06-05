@@ -1,0 +1,49 @@
+<div aria-live="assertive" class="{{ page.plot }}" id="displayQA"> 
+    <h2>Submitted Q&A</h2>
+    <p>
+      Thank you for submitting a question. If you provided an email we will notify you of an answer. We are working on posting Q&As here soon. 
+    </p>
+
+    <p>
+      <ul id="questionList">
+      </ul>
+    </p>
+
+</div>
+
+<script type="text/javascript">
+  window.onload = function() {
+
+    // console.log('{{page.title}}');
+    var file = "Dataset/Q-A-Database - responses.csv";
+    console.log(file);
+
+    Papa.parse(file, {
+        header: true,
+        download: true,
+        delimiter: ",",
+        complete: function(results, file) {
+            // console.log("parsing complete");
+            // console.log(results.data);
+            for (i = 0; i < results.data.length; i++) {
+
+              if (results.data[i].post == "yes" && results.data[i].plot == '{{page.title}}' ) {
+
+                console.log("YES! the answer is " + results.data[i].answer);
+                // post to Q&A
+                $("#questionList").append("<li>" + results.data[i].question + " " + results.data[i].answer + "</li>");
+              }
+            }
+        }
+    });
+
+  }
+</script>
+
+
+
+
+
+
+
+

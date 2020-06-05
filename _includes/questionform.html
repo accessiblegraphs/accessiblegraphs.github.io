@@ -45,22 +45,43 @@
 
   <button class="btn btn-info" type="submit" id="submit">Submit</button>
 
-  <div aria-live="assertive" class="thankyou_message" id="displayQA" style="display:none;" tabindex="0"> 
+  <div aria-live="assertive" class="thankyou_message {{ page.plot }}" id="displayQA" style="display:none;" tabindex="0"> 
       <h2>Submitted Q&A</h2>
       <p>
         Thank you for submitting a question. If you provided an email we will notify you of an answer. We are working on posting Q&As here soon. 
       </p>
       <p>
-        No questions have been submitted or answered for this graph yet.
+        <ul id="questionList">
+        </ul>
       </p>
   </div>
 
 </form>
 
+<script type="text/javascript">
+  window.onload = function() {
 
+    var file = "Dataset/Q-A-Database - responses.csv";
+    console.log(file);
 
+    Papa.parse(file, {
+        header: true,
+        download: true,
+        delimiter: ",",
+        complete: function(results, file) {
+            // console.log("parsing complete");
+            // console.log(results.data);
+            for (i = 0; i < results.data.length; i++) {
 
+              if (results.data[i].post == "yes" && results.data[i].plot == '{{page.title}}' ) {
 
+                console.log("YES! the answer is " + results.data[i].answer);
+                // post to Q&A
+                $("#questionList").append("<li>" + results.data[i].question + " " + results.data[i].answer + "</li>");
+              }
+            }
+        }
+    });
 
-
-
+  }
+</script>
