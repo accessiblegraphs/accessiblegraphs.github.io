@@ -129,7 +129,7 @@ def plotJHGlobal():
     
      # Plot layout settings
     fig.update_layout(
-            title='Confirmed Covid-19 Cases',
+            title='Linear Plot for Confirmed Covid-19 Cases',
             title_x=0.5,
             xaxis_title = 'Date',
             yaxis_title = 'Confirmed Covid-19 Cases',
@@ -163,7 +163,7 @@ def plotJHGlobal():
     # Plot layout settings
     fig2.update_layout(
             yaxis_type="log",
-            title='Confirmed Covid-19 Cases',
+            title='Logarithmic Plot for Confirmed Covid-19 Cases',
             title_x=0.5,
             xaxis_title = 'Date',
             yaxis_title = 'Confirmed Covid-19 Cases',
