@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 'Civilian Unemployment'
+title: 'Civilian Unemployment Rate'
 plot: 'plotUnemployment'
 dataset: 'unemployment'
 lastUpdated: 'June 8, 2020'

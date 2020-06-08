@@ -11,8 +11,9 @@ The Accessible Graphics project was launched as a platform to provide important 
 * [Flatten the Curve]({% link flattenTheCurve.md %})
 * [Global Evolution of Covid-19 Cases]({% link plotCases.md %})
 <!-- * [CDC Testing Data]({% link cdcTestingData.md %}) -->
-* [Civilian Unemployment Rate]({% link unemployment.md %})
 * [Rt: Effective Reproduction Rate]({% link rtlive.md %})
+* [Deaths by Race]({% link deathsByRace.md %})
+* [Civilian Unemployment Rate]({% link unemployment.md %})
 
 Have a plot you want to see but is not here? [Send us a suggestion]({% link contact.md %}). 
 
