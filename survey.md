@@ -7,6 +7,6 @@ You are invited to participate in an online survey investigating the experiences
 
 Data graphics are increasingly presented in many aspects of data-driven news, yet many barriers still exist for making such representations accessible. By collecting this information, we hope to illuminate issues, understand barriers affecting individuals, and implement solutions needed for making authoring and consumption of data graphics accessible.
 
-In the survey, you may provide an email to participate in a raffle for an Amazon gift card for 15USD. You do not need to complete the survey in order to enter the raffle. The raffle will be conducted after the survey end date of [date]. Participants who opt to participate will be notified through the provided email.
+In the survey, you may provide an email to participate in a raffle for an Amazon gift card for 15USD. You do not need to complete the survey in order to enter the raffle. The raffle will be conducted after the survey end date mid-July. Participants who opt to participate will be notified through the provided email.
 
-Participate in the survey through this link. 
+[Participate in the survey through this link.](https://stanforduniversity.qualtrics.com/jfe/form/SV_8IGOtCrbFSiRK2V)

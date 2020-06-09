@@ -10,7 +10,6 @@ The Accessible Graphics project was launched as a platform to provide important 
 ## List of data graphics available:
 * [Flatten the Curve]({% link flattenTheCurve.md %})
 * [Global Evolution of Covid-19 Cases]({% link plotCases.md %})
-<!-- * [CDC Testing Data]({% link cdcTestingData.md %}) -->
 * [Rt: Effective Reproduction Rate]({% link rtlive.md %})
 * [Deaths by Race]({% link deathsByRace.md %})
 * [Civilian Unemployment Rate]({% link unemployment.md %})
