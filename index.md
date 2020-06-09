@@ -5,7 +5,7 @@ layout: default
 
 <img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt=""> 
 
-The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics related to the COVID-19 health crisis. We are continuously updating the site and expanding on the library of graphics available. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS Graphics Accelerator]({% link usingSAS.md %}).
+The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics. We are continuously updating the site and expanding on the library of graphics available currently related to the COVID-19 health crisis. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS Graphics Accelerator]({% link usingSAS.md %}).
 
 ## List of data graphics available:
 * [Flatten the Curve]({% link flattenTheCurve.md %})
