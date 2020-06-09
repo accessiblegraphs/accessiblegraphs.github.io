@@ -5,14 +5,18 @@ layout: default
 
 <img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt=""> 
 
-The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics about the COVID-19 health crisis. We are continuously updating the site and expanding on the library of graphics available. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS Graphics Accelerator]({% link usingSAS.md %}).
+The Accessible Graphics project was launched as a platform to provide important up-to-date multimodal graphics related to the COVID-19 health crisis. We are continuously updating the site and expanding on the library of graphics available. The project currently uses [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/index.html) which is only supported in [Google Chrome](https://www.google.com/chrome/). We have provided instruction on [how to use SAS Graphics Accelerator]({% link usingSAS.md %}).
 
 ## List of data graphics available:
 * [Flatten the Curve]({% link flattenTheCurve.md %})
 * [Global Evolution of Covid-19 Cases]({% link plotCases.md %})
-* [CDC Testing Data]({% link cdcTestingData.md %})
 * [Rt: Effective Reproduction Rate]({% link rtlive.md %})
+<<<<<<< HEAD
 * [Covid Deaths by Race]({% link deathsByRace.md %})
+=======
+* [Deaths by Race]({% link deathsByRace.md %})
+* [Civilian Unemployment Rate]({% link unemployment.md %})
+>>>>>>> 0de0e0dc023778da1ac967ad24ff2ec8f192bcd2
 
 Have a plot you want to see but is not here? [Send us a suggestion]({% link contact.md %}). 
 
@@ -23,7 +27,4 @@ We are also interested in understanding the strengths and limitations of existin
 * [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19)
 * [CDC Coronavirus Cases, Data & Surveillance](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/testing-in-us.html)
 * [Rt.Live](https://rt.live/)
-
-
-
-
+* [U.S. Bureau of Labor Statistics](https://www.bls.gov/charts/employment-situation/civilian-unemployment-rate.htm)
