@@ -1,0 +1,80 @@
+{% include accelerateButton.html name="plotDeathsByRace" %}
+<div>
+ <div>
+  <img alt="Scatter plot showing Covid-19 Deaths per 100,000 People (y-axis) by Race (x-axis). Access alternative presentations of this graph using the SAS Graphics Accelerator Button." id="graph" src="../Images_Plotly/DeathByRace.png"/>
+ </div>
+ <script class="ODSGraphics" type="application/xml">
+  <?xml version="1.0" encoding="utf-8" ?><SASReport version="1.2" xmlns:style="http://www.sas.com/sasreportmodel/styles"><Data version="sga3.2"><DataModel name="StatGraphDataModel"><IQData type="2DEmbedded" name="StatGraphData"><EmbeddedData><Variables><Variable name="VAR1" label="Region" type="String" length="100" valuesCount="5"  /><Variable name="VAR2" label="Deaths Per 100,000 People of Each Group" type="Numeric" valuesCount="5" SASFormat="comma."  /><Variable name="VAR3" label="Category" type="String" length="100" valuesCount="5"  /></Variables><ValuesList valuesCount="5" ><V>a</V><V>50</V><V>s</V><V>b</V><V>200</V><V>s</V><V>c</V><V>30</V><V>d</V><V>d</V><V>20</V><V>d</V><V>e</V><V>10</V><V>b</V></ValuesList></EmbeddedData></IQData><VarStats><VarStat name="VAR2" modelName="statgraphdata1" nobs="5" min="10" max="200" /></VarStats></DataModel></Data><View><StatGraph subpixel="on" height="480" width="640" designHeight="480" style:style="StatGraphStyle" antiAlias="true" nBinsMax="10000" nXYBinsMax="100000" sessionLocale="en_US" missingOption="." notesOption="true" collation="binary" version="sga3.2"><EntryTitle><EntryItem>Covid-19 Deaths Per 100,000 People of Each Group, Through May 26, 2020</EntryItem></EntryTitle><LayoutOverlay><XAxisOpts label="Region"></XAxisOpts><YAxisOpts label="Deaths Per 100,000 People of Each Group"></YAxisOpts><BarChartParm category="statgraphdata1#VAR1" response="statgraphdata1#VAR2" stat="none" group="statgraphdata1#VAR3" groupDisplay="cluster" _stmt="barchart"></BarChartParm></LayoutOverlay></StatGraph></View></SASReport>
+ </script>
+</div>
+<div id="sas-sga-message">
+ <span id="downloadWindows">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Alt to move focus to the Chrome menu.
+     </li>
+     <li>
+      Use the arrow keys to navigate to More Tools &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+ <span id="downloadMac" style="display:none;">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Control-F2 to move focus to the menu bar.
+     </li>
+     <li>
+      Use the arrow keys to navigate to Window &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+</div>
+<script>
+ if(location.protocol.toLowerCase()!="file:"){document.querySelector("#file-url").parentNode.removeChild(document.querySelector("#file-url"));}if(navigator.platform.indexOf('Mac') === 0){document.getElementById('downloadMac').style.display='block';document.getElementById('downloadWindows').style.display='none';}document.addEventListener("SASGraphicsAccelerator-scan",function(e){graph.setAttribute("alt","Bar chart showing COLUMN 2 by COLUMN 1, grouped by COLUMN 3");});function hcShim(elem){elem.textContent = elem.textContent.replace(/src\*\=\"jp/g, "src$=\"jp");}if(document.querySelector("#hc_style") !== null){hcShim(hc_style);}else{document.head.addEventListener("DOMNodeInserted", function(e){if(e.target.id === "hc_style"){hcShim(hc_style);}});}
+</script>

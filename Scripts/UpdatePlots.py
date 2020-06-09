@@ -30,6 +30,75 @@ def main():
     #plotJHGlobal() 
     #modifyJHGlobal()
     
+    scrapeCovidRace()
+    plotCovidRace()
+    
+    # modifyCovidRace()
+    
+    global APMRace
+    
+    # replace nans with 0
+    APMRace = APMRace.fillna(0)
+    
+    # make instance of Beautiful soup class
+    soup = BeautifulSoup(open("../_includes/plotDeathsByRace.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotDeathsByRace" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8"))
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+    
+    # values to update
+    newValuesCount = APMRace.index.size* 3
+    newNobs = newValuesCount
+    newMin = min(APMRace['Indigenous'].min(), APMRace['Asian'].min(), 
+                 APMRace['Black '].min(), APMRace['Latino'].min(),
+                 APMRace['White'].min(), APMRace['All deaths of known race'].min())
+    newMax = max(APMRace['Indigenous'].max(), APMRace['Asian'].max(), 
+                 APMRace['Black '].max(), APMRace['Latino'].max(),
+                 APMRace['White'].max(), APMRace['All deaths of known race'].max())
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(APMRace.index.size):
+        newData = (newData + '<V>' + 
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Indigenous'].iloc[i]) + 
+                   '</V><V>' + 'Indigenous' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Asian'].iloc[i]) + 
+                   '</V><V>' + 'Asian' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Black '].iloc[i]) + 
+                   '</V><V>' + 'Black' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Latino'].iloc[i]) + 
+                   '</V><V>' + 'Latino' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['White'].iloc[i]) + 
+                   '</V><V>' + 'White' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['All deaths of known race'].iloc[i]) + 
+                   '</V><V>' + 'All deaths of known race' + '</V>')
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotDeathsByRace_test.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
+    
+
+
+def scrapeCovidRace():
+    
     # scrapeCovidRace
     plotData = pd.read_excel('https://www.apmresearchlab.org/s/ColorOfCoronavirus_DataFile_ThroughMay26_2020_APMResearchLab-apnj.xlsx',
                            sheet_name=1, header=[0,1])
@@ -54,9 +123,9 @@ def main():
     # output dataset to csv
     APMRace.to_csv('../Dataset/APMRace.csv' ,index=True, float_format='%.0f')
     
-    # plotCovidRace
-    
-    #global APMRace
+def plotCovidRace():
+
+    global APMRace
     
     # sort by minimum to maximum total values
     APMRace = APMRace.sort_values(by=['All deaths of known race'])
@@ -102,7 +171,7 @@ def main():
             title_x=0.5,
             xaxis_title = 'Region',
             yaxis_title = 'Deaths per 100,000 People of Each Group',
-            font = dict(size = 18),
+            font = dict(size = 20),
             height=800,
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
@@ -120,8 +189,7 @@ def main():
 
     # Output Image
     fig.write_image("../Images_Plotly/DeathByRace.png",width=1200, height=800, scale=2)
-
-
+    
 def scrapeJHGlobal():
         
     # scrapeJHGlobal()

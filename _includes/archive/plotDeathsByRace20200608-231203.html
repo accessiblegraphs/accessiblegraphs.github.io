@@ -1,0 +1,80 @@
+{% include accelerateButton.html name="plotDeathsByRace" %}
+<div>
+ <div>
+  <img alt="Bar plot showing the effective reproduction rate (y-axis) for each state (x-axis) in asending order. Access alternative presentations of this graph using the SAS Graphics Accelerator Button" id="graph" src="../Images_Plotly/DeathByRace.png"/>
+ </div>
+ <script class="ODSGraphics" type="application/xml">
+  <?xml version="1.0" encoding="utf-8" ?><SASReport version="1.2" xmlns:style="http://www.sas.com/sasreportmodel/styles"><Data version="sga3.2"><DataModel name="StatGraphDataModel"><IQData type="2DEmbedded" name="StatGraphData"><EmbeddedData><Variables><Variable name="VAR1" label="Region" type="String" length="100" valuesCount="258"  /><Variable name="VAR2" label="_Deaths per 100,000 People of Each Group" type="Numeric" valuesCount="258" SASFormat="comma."  /><Variable name="VAR3" label="Category" type="String" length="100" valuesCount="258"  /></Variables><ValuesList valuesCount="258" ><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>All deaths of known race</V><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>Indigenous</V><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>Asian</V><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>Black</V><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>Latino</V><V>UNITED STATES TOTAL (via NYT)</V><V>0</V><V>White</V><V>Alaska</V><V>1</V><V>All deaths of known race</V><V>Alaska</V><V>0</V><V>Indigenous</V><V>Alaska</V><V>0</V><V>Asian</V><V>Alaska</V><V>0</V><V>Black</V><V>Alaska</V><V>0</V><V>Latino</V><V>Alaska</V><V>0</V><V>White</V><V>Texas</V><V>1</V><V>All deaths of known race</V><V>Texas</V><V>0</V><V>Indigenous</V><V>Texas</V><V>0</V><V>Asian</V><V>Texas</V><V>2</V><V>Black</V><V>Texas</V><V>1</V><V>Latino</V><V>Texas</V><V>2</V><V>White</V><V>Oregon</V><V>3</V><V>All deaths of known race</V><V>Oregon</V><V>0</V><V>Indigenous</V><V>Oregon</V><V>0</V><V>Asian</V><V>Oregon</V><V>0</V><V>Black</V><V>Oregon</V><V>3</V><V>Latino</V><V>Oregon</V><V>3</V><V>White</V><V>Idaho</V><V>5</V><V>All deaths of known race</V><V>Idaho</V><V>0</V><V>Indigenous</V><V>Idaho</V><V>0</V><V>Asian</V><V>Idaho</V><V>0</V><V>Black</V><V>Idaho</V><V>0</V><V>Latino</V><V>Idaho</V><V>5</V><V>White</V><V>New Hampshire</V><V>8</V><V>All deaths of known race</V><V>New Hampshire</V><V>0</V><V>Indigenous</V><V>New Hampshire</V><V>0</V><V>Asian</V><V>New Hampshire</V><V>0</V><V>Black</V><V>New Hampshire</V><V>0</V><V>Latino</V><V>New Hampshire</V><V>7</V><V>White</V><V>Arkansas</V><V>4</V><V>All deaths of known race</V><V>Arkansas</V><V>0</V><V>Indigenous</V><V>Arkansas</V><V>0</V><V>Asian</V><V>Arkansas</V><V>10</V><V>Black</V><V>Arkansas</V><V>0</V><V>Latino</V><V>Arkansas</V><V>3</V><V>White</V><V>Vermont</V><V>9</V><V>All deaths of known race</V><V>Vermont</V><V>0</V><V>Indigenous</V><V>Vermont</V><V>0</V><V>Asian</V><V>Vermont</V><V>0</V><V>Black</V><V>Vermont</V><V>0</V><V>Latino</V><V>Vermont</V><V>8</V><V>White</V><V>Tennessee</V><V>5</V><V>All deaths of known race</V><V>Tennessee</V><V>0</V><V>Indigenous</V><V>Tennessee</V><V>0</V><V>Asian</V><V>Tennessee</V><V>10</V><V>Black</V><V>Tennessee</V><V>5</V><V>Latino</V><V>Tennessee</V><V>4</V><V>White</V><V>South Carolina</V><V>8</V><V>All deaths of known race</V><V>South Carolina</V><V>0</V><V>Indigenous</V><V>South Carolina</V><V>0</V><V>Asian</V><V>South Carolina</V><V>17</V><V>Black</V><V>South Carolina</V><V>0</V><V>Latino</V><V>South Carolina</V><V>5</V><V>White</V><V>Oklahoma</V><V>8</V><V>All deaths of known race</V><V>Oklahoma</V><V>3</V><V>Indigenous</V><V>Oklahoma</V><V>0</V><V>Asian</V><V>Oklahoma</V><V>9</V><V>Black</V><V>Oklahoma</V><V>2</V><V>Latino</V><V>Oklahoma</V><V>9</V><V>White</V><V>North Carolina</V><V>7</V><V>All deaths of known race</V><V>North Carolina</V><V>0</V><V>Indigenous</V><V>North Carolina</V><V>3</V><V>Asian</V><V>North Carolina</V><V>12</V><V>Black</V><V>North Carolina</V><V>4</V><V>Latino</V><V>North Carolina</V><V>6</V><V>White</V><V>Florida</V><V>10</V><V>All deaths of known race</V><V>Florida</V><V>0</V><V>Indigenous</V><V>Florida</V><V>0</V><V>Asian</V><V>Florida</V><V>15</V><V>Black</V><V>Florida</V><V>9</V><V>Latino</V><V>Florida</V><V>10</V><V>White</V><V>Alabama</V><V>11</V><V>All deaths of known race</V><V>Alabama</V><V>0</V><V>Indigenous</V><V>Alabama</V><V>0</V><V>Asian</V><V>Alabama</V><V>19</V><V>Black</V><V>Alabama</V><V>6</V><V>Latino</V><V>Alabama</V><V>9</V><V>White</V><V>Kentucky</V><V>8</V><V>All deaths of known race</V><V>Kentucky</V><V>0</V><V>Indigenous</V><V>Kentucky</V><V>11</V><V>Asian</V><V>Kentucky</V><V>19</V><V>Black</V><V>Kentucky</V><V>0</V><V>Latino</V><V>Kentucky</V><V>7</V><V>White</V><V>Kansas</V><V>6</V><V>All deaths of known race</V><V>Kansas</V><V>0</V><V>Indigenous</V><V>Kansas</V><V>0</V><V>Asian</V><V>Kansas</V><V>33</V><V>Black</V><V>Kansas</V><V>4</V><V>Latino</V><V>Kansas</V><V>5</V><V>White</V><V>Virginia</V><V>13</V><V>All deaths of known race</V><V>Virginia</V><V>0</V><V>Indigenous</V><V>Virginia</V><V>0</V><V>Asian</V><V>Virginia</V><V>16</V><V>Black</V><V>Virginia</V><V>13</V><V>Latino</V><V>Virginia</V><V>12</V><V>White</V><V>Washington</V><V>13</V><V>All deaths of known race</V><V>Washington</V><V>0</V><V>Indigenous</V><V>Washington</V><V>14</V><V>Asian</V><V>Washington</V><V>11</V><V>Black</V><V>Washington</V><V>9</V><V>Latino</V><V>Washington</V><V>13</V><V>White</V><V>Missouri</V><V>11</V><V>All deaths of known race</V><V>Missouri</V><V>0</V><V>Indigenous</V><V>Missouri</V><V>0</V><V>Asian</V><V>Missouri</V><V>37</V><V>Black</V><V>Missouri</V><V>6</V><V>Latino</V><V>Missouri</V><V>8</V><V>White</V><V>California</V><V>9</V><V>All deaths of known race</V><V>California</V><V>10</V><V>Indigenous</V><V>California</V><V>9</V><V>Asian</V><V>California</V><V>17</V><V>Black</V><V>California</V><V>9</V><V>Latino</V><V>California</V><V>9</V><V>White</V><V>Minnesota</V><V>12</V><V>All deaths of known race</V><V>Minnesota</V><V>16</V><V>Indigenous</V><V>Minnesota</V><V>8</V><V>Asian</V><V>Minnesota</V><V>15</V><V>Black</V><V>Minnesota</V><V>7</V><V>Latino</V><V>Minnesota</V><V>12</V><V>White</V><V>Ohio</V><V>17</V><V>All deaths of known race</V><V>Ohio</V><V>0</V><V>Indigenous</V><V>Ohio</V><V>6</V><V>Asian</V><V>Ohio</V><V>24</V><V>Black</V><V>Ohio</V><V>7</V><V>Latino</V><V>Ohio</V><V>17</V><V>White</V><V>Wisconsin</V><V>9</V><V>All deaths of known race</V><V>Wisconsin</V><V>0</V><V>Indigenous</V><V>Wisconsin</V><V>8</V><V>Asian</V><V>Wisconsin</V><V>38</V><V>Black</V><V>Wisconsin</V><V>11</V><V>Latino</V><V>Wisconsin</V><V>7</V><V>White</V><V>Georgia</V><V>17</V><V>All deaths of known race</V><V>Georgia</V><V>0</V><V>Indigenous</V><V>Georgia</V><V>6</V><V>Asian</V><V>Georgia</V><V>28</V><V>Black</V><V>Georgia</V><V>8</V><V>Latino</V><V>Georgia</V><V>15</V><V>White</V><V>Iowa</V><V>13</V><V>All deaths of known race</V><V>Iowa</V><V>0</V><V>Indigenous</V><V>Iowa</V><V>18</V><V>Asian</V><V>Iowa</V><V>21</V><V>Black</V><V>Iowa</V><V>13</V><V>Latino</V><V>Iowa</V><V>13</V><V>White</V><V>Arizona</V><V>9</V><V>All deaths of known race</V><V>Arizona</V><V>48</V><V>Indigenous</V><V>Arizona</V><V>4</V><V>Asian</V><V>Arizona</V><V>7</V><V>Black</V><V>Arizona</V><V>6</V><V>Latino</V><V>Arizona</V><V>9</V><V>White</V><V>Indiana</V><V>26</V><V>All deaths of known race</V><V>Indiana</V><V>0</V><V>Indigenous</V><V>Indiana</V><V>0</V><V>Asian</V><V>Indiana</V><V>44</V><V>Black</V><V>Indiana</V><V>6</V><V>Latino</V><V>Indiana</V><V>22</V><V>White</V><V>Delaware</V><V>33</V><V>All deaths of known race</V><V>Delaware</V><V>0</V><V>Indigenous</V><V>Delaware</V><V>0</V><V>Asian</V><V>Delaware</V><V>38</V><V>Black</V><V>Delaware</V><V>25</V><V>Latino</V><V>Delaware</V><V>34</V><V>White</V><V>New Mexico</V><V>16</V><V>All deaths of known race</V><V>New Mexico</V><V>99</V><V>Indigenous</V><V>New Mexico</V><V>0</V><V>Asian</V><V>New Mexico</V><V>0</V><V>Black</V><V>New Mexico</V><V>5</V><V>Latino</V><V>New Mexico</V><V>12</V><V>White</V><V>Colorado</V><V>23</V><V>All deaths of known race</V><V>Colorado</V><V>0</V><V>Indigenous</V><V>Colorado</V><V>30</V><V>Asian</V><V>Colorado</V><V>41</V><V>Black</V><V>Colorado</V><V>21</V><V>Latino</V><V>Colorado</V><V>22</V><V>White</V><V>ALL KNOWN DEATHS ABOVE</V><V>28</V><V>All deaths of known race</V><V>ALL KNOWN DEATHS ABOVE</V><V>0</V><V>Indigenous</V><V>ALL KNOWN DEATHS ABOVE</V><V>24</V><V>Asian</V><V>ALL KNOWN DEATHS ABOVE</V><V>55</V><V>Black</V><V>ALL KNOWN DEATHS ABOVE</V><V>25</V><V>Latino</V><V>ALL KNOWN DEATHS ABOVE</V><V>23</V><V>White</V><V>Maryland</V><V>38</V><V>All deaths of known race</V><V>Maryland</V><V>0</V><V>Indigenous</V><V>Maryland</V><V>24</V><V>Asian</V><V>Maryland</V><V>54</V><V>Black</V><V>Maryland</V><V>33</V><V>Latino</V><V>Maryland</V><V>32</V><V>White</V><V>Rhode Island</V><V>51</V><V>All deaths of known race</V><V>Rhode Island</V><V>0</V><V>Indigenous</V><V>Rhode Island</V><V>0</V><V>Asian</V><V>Rhode Island</V><V>45</V><V>Black</V><V>Rhode Island</V><V>33</V><V>Latino</V><V>Rhode Island</V><V>59</V><V>White</V><V>Pennsylvania</V><V>39</V><V>All deaths of known race</V><V>Pennsylvania</V><V>0</V><V>Indigenous</V><V>Pennsylvania</V><V>27</V><V>Asian</V><V>Pennsylvania</V><V>71</V><V>Black</V><V>Pennsylvania</V><V>27</V><V>Latino</V><V>Pennsylvania</V><V>35</V><V>White</V><V>Illinois</V><V>38</V><V>All deaths of known race</V><V>Illinois</V><V>0</V><V>Indigenous</V><V>Illinois</V><V>34</V><V>Asian</V><V>Illinois</V><V>84</V><V>Black</V><V>Illinois</V><V>43</V><V>Latino</V><V>Illinois</V><V>27</V><V>White</V><V>Mississippi</V><V>22</V><V>All deaths of known race</V><V>Mississippi</V><V>174</V><V>Indigenous</V><V>Mississippi</V><V>0</V><V>Asian</V><V>Mississippi</V><V>30</V><V>Black</V><V>Mississippi</V><V>0</V><V>Latino</V><V>Mississippi</V><V>16</V><V>White</V><V>Louisiana</V><V>58</V><V>All deaths of known race</V><V>Louisiana</V><V>0</V><V>Indigenous</V><V>Louisiana</V><V>29</V><V>Asian</V><V>Louisiana</V><V>98</V><V>Black</V><V>Louisiana</V><V>22</V><V>Latino</V><V>Louisiana</V><V>40</V><V>White</V><V>District of Columbia</V><V>63</V><V>All deaths of known race</V><V>District of Columbia</V><V>0</V><V>Indigenous</V><V>District of Columbia</V><V>0</V><V>Asian</V><V>District of Columbia</V><V>107</V><V>Black</V><V>District of Columbia</V><V>59</V><V>Latino</V><V>District of Columbia</V><V>19</V><V>White</V><V>Massachusetts</V><V>56</V><V>All deaths of known race</V><V>Massachusetts</V><V>0</V><V>Indigenous</V><V>Massachusetts</V><V>25</V><V>Asian</V><V>Massachusetts</V><V>67</V><V>Black</V><V>Massachusetts</V><V>48</V><V>Latino</V><V>Massachusetts</V><V>55</V><V>White</V><V>Michigan</V><V>51</V><V>All deaths of known race</V><V>Michigan</V><V>66</V><V>Indigenous</V><V>Michigan</V><V>16</V><V>Asian</V><V>Michigan</V><V>153</V><V>Black</V><V>Michigan</V><V>20</V><V>Latino</V><V>Michigan</V><V>34</V><V>White</V><V>Connecticut</V><V>104</V><V>All deaths of known race</V><V>Connecticut</V><V>0</V><V>Indigenous</V><V>Connecticut</V><V>22</V><V>Asian</V><V>Connecticut</V><V>156</V><V>Black</V><V>Connecticut</V><V>55</V><V>Latino</V><V>Connecticut</V><V>116</V><V>White</V><V>New Jersey</V><V>109</V><V>All deaths of known race</V><V>New Jersey</V><V>0</V><V>Indigenous</V><V>New Jersey</V><V>61</V><V>Asian</V><V>New Jersey</V><V>150</V><V>Black</V><V>New Jersey</V><V>101</V><V>Latino</V><V>New Jersey</V><V>87</V><V>White</V><V>New York</V><V>137</V><V>All deaths of known race</V><V>New York</V><V>0</V><V>Indigenous</V><V>New York</V><V>118</V><V>Asian</V><V>New York</V><V>251</V><V>Black</V><V>New York</V><V>187</V><V>Latino</V><V>New York</V><V>81</V><V>White</V></ValuesList></EmbeddedData></IQData><VarStats><VarStat name="VAR2" modelName="statgraphdata1" nobs="258" min="0" max="251" /></VarStats></DataModel></Data><View><StatGraph subpixel="on" height="480" width="640" designHeight="480" style:style="StatGraphStyle" antiAlias="true" nBinsMax="10000" nXYBinsMax="100000" sessionLocale="en_US" missingOption="." notesOption="true" collation="binary" version="sga3.2"><EntryTitle><EntryItem>Covid-19 Deaths Per 100,000 People of Each Group, Through May 26, 2020</EntryItem></EntryTitle><LayoutOverlay><XAxisOpts label="Region"></XAxisOpts><YAxisOpts label="Total _Deaths per 100,000 People of Each Group"></YAxisOpts><BarChartParm category="statgraphdata1#VAR1" response="statgraphdata1#VAR2" stat="sum" group="statgraphdata1#VAR3" groupDisplay="cluster" _stmt="barchart"></BarChartParm></LayoutOverlay></StatGraph></View></SASReport>
+ </script>
+</div>
+<div id="sas-sga-message">
+ <span id="downloadWindows">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Alt to move focus to the Chrome menu.
+     </li>
+     <li>
+      Use the arrow keys to navigate to More Tools &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+ <span id="downloadMac" style="display:none;">
+  To access alternative presentations of this graph:
+  <br/>
+  <ol>
+   <li>
+    Install the
+    <a href="https://chrome.google.com/webstore/detail/sas-graphics-accelerator/ockmipfaiiahknplinepcaogdillgoko">
+     SAS Graphics Accelerator for Google Chrome
+    </a>
+    from  the Chrome Web Store.
+   </li>
+   <li id="file-url">
+    Follow these steps to enable SAS Graphics Accelerator to access local files:
+    <ol type="a">
+     <li>
+      Press Control-F2 to move focus to the menu bar.
+     </li>
+     <li>
+      Use the arrow keys to navigate to Window &gt; Extensions and then press Enter to open the Extensions page.
+     </li>
+     <li>
+      Activate the Details button for SAS Graphics Accelerator and enable the "Allow access to file URLs" toggle button.
+     </li>
+    </ol>
+   </li>
+   <li>
+    Reopen this page in Google Chrome
+   </li>
+   <li>
+    Activate the Accelerate button within the graph
+   </li>
+  </ol>
+ </span>
+</div>
+<script>
+ if(location.protocol.toLowerCase()!="file:"){document.querySelector("#file-url").parentNode.removeChild(document.querySelector("#file-url"));}if(navigator.platform.indexOf('Mac') === 0){document.getElementById('downloadMac').style.display='block';document.getElementById('downloadWindows').style.display='none';}document.addEventListener("SASGraphicsAccelerator-scan",function(e){graph.setAttribute("alt","Covid-19 Deaths Per 100,000 People of Each Group, Through May 26, 2020");});function hcShim(elem){elem.textContent = elem.textContent.replace(/src\*\=\"jp/g, "src$=\"jp");}if(document.querySelector("#hc_style") !== null){hcShim(hc_style);}else{document.head.addEventListener("DOMNodeInserted", function(e){if(e.target.id === "hc_style"){hcShim(hc_style);}});}
+</script>
