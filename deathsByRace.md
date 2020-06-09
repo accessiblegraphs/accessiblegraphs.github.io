@@ -1,20 +1,20 @@
 ---
 layout: default
-title: 'Deaths By Race'
+title: 'Covid-19 Deaths By Race'
 plot: 'plotDeathsByRace'
-dataset: 'CDC_TestData'
+dataset: 'APMRace'
 lastUpdated: 'June 5, 2020'
 ---
 
 {% include graphInstructions.html %}
 
-<!-- {% include plotCDCdata.html %} -->
+{% include plotDeathsByRace.html %} -->
 
 {% include questionform.html %}
 
-{% include tableData.html %}
+Covid-19 Deaths per 100,000 People
 
-§ indicates that incomplete data because of the lag in time between when specimens are accessioned, testing is performed, and results are reported.
+{% include tableData.html %}
 
 
 

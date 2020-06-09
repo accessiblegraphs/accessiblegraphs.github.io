@@ -17,110 +17,25 @@ import pandas as pd
 import time
 
 # Module variables
+CDCTestData = []
 RtData = []
 JHGlobal = []
-APMRace = [];
+
 def main():
+    
+    scrapeCDC()
+    plotCDC()
+    modifyCDC()
 
-    #scrapeRt()
-    #plotRt()
-    #modifyRt()
+    scrapeRt()
+    plotRt()
+    modifyRt()
     
-    #scrapeJHGlobal()
-    #plotJHGlobal() 
-    #modifyJHGlobal()
+    scrapeJHGlobal()
+    plotJHGlobal() 
+    modifyJHGlobal()
     
-    # scrapeCovidRace
-    plotData = pd.read_excel('https://www.apmresearchlab.org/s/ColorOfCoronavirus_DataFile_ThroughMay26_2020_APMResearchLab-apnj.xlsx',
-                           sheet_name=1, header=[0,1])
-    
-    # identify headers that contain "100,000" (list of tuples)
-    deathRate_cols = [col for col in plotData.columns if '100,000' in col[0]]
-    
-    # filter dataframe by headers that contain "100,000"
-    plotDataFiltered = plotData[deathRate_cols]
-    
-    # find corresponding races
-    newColNames = [col[1] for col in deathRate_cols]
-    
-    # assign new column names based on the races
-    plotDataFiltered.columns = newColNames
-    
-    global APMRace
-        
-    # store the dataset
-    APMRace = plotDataFiltered
-    
-    # output dataset to csv
-    APMRace.to_csv('../Dataset/APMRace.csv' ,index=True, float_format='%.0f')
-    
-    # plotCovidRace
-    
-    #global APMRace
-    
-    # sort by minimum to maximum total values
-    APMRace = APMRace.sort_values(by=['All deaths of known race'])
-    
-    # Drop NYTimes columns
-    APMRace = APMRace.drop(['UNITED STATES TOTAL (via NYT)'], axis=0)
-    
-    # Rename all known US deaths
-    APMRace = APMRace.rename(index={'ALL KNOWN DEATHS ABOVE': 'Cumulative Over Regions'})
-    
-    # Move Cumaltive Over Regions Column to Very End
-    idx = APMRace.index.get_loc('Cumulative Over Regions')
-    APMRace = APMRace.iloc[[i for i in range(len(APMRace)) if i != idx] + [idx]] 
-    
-    # plot data
-    fig = go.Figure()
-    
-    fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Indigenous'], mode='markers', 
-        name='Indigenous', marker_symbol='circle-open',
-            # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
-    fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Asian'], mode='markers', 
-        name='Asian', marker_symbol='circle-open',
-            # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
-    fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Black '], mode='markers', 
-        name='Black', marker_symbol='circle-open',
-            # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
-    fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Latino'], mode='markers', 
-        name='Latino', marker_symbol='circle-open',
-            # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
-    fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['White'], mode='markers', 
-        name='White', marker_symbol='circle-open',
-            # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
-    
-    
-    # Plot layout settings
-    fig.update_layout(
-            title='Covid-19 Deaths Per 100,000 People of Each Group, Through May 26, 2020',
-            title_x=0.5,
-            xaxis_title = 'Region',
-            yaxis_title = 'Deaths per 100,000 People of Each Group',
-            font = dict(size = 18),
-            height=800,
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            margin=dict(r=0),
-            legend_orientation="h",
-            legend=dict(x=-.1, y=-0.5),
-            showlegend=True
-            )
-    
-    # Add gridlines
-    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray', 
-                     showline=True, linewidth=2, linecolor='black',)
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='black',
-                     tickfont=dict(size=16))
-
-    # Output Image
-    fig.write_image("../Images_Plotly/DeathByRace.png",width=1200, height=800, scale=2)
-
+   
 
 def scrapeJHGlobal():
         

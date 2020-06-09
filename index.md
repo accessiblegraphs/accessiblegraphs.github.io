@@ -12,6 +12,7 @@ The Accessible Graphics project was launched as a platform to provide important 
 * [Global Evolution of Covid-19 Cases]({% link plotCases.md %})
 * [CDC Testing Data]({% link cdcTestingData.md %})
 * [Rt: Effective Reproduction Rate]({% link rtlive.md %})
+* [Covid Deaths by Race]({% link deathsByRace.md %})
 
 Have a plot you want to see but is not here? [Send us a suggestion]({% link contact.md %}). 
 
