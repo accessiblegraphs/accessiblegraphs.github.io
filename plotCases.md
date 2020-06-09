@@ -2,7 +2,7 @@
 layout: default
 title: 'Global Evolution of Covid-19 Cases'
 dataset: 'GlobalTimeSeries'
-lastUpdated: 'May 3, 2020'
+lastUpdated: 'June 9, 2020'
 ---
 
 The number of new confirmed Covid-19 cases and total number of confirmed Covid-19 cases are in graphs below. The data is updated daily with the [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19).

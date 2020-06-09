@@ -16,8 +16,12 @@ The Accessible Graphics project was launched as a platform to provide important 
 
 Have a plot you want to see but is not here? [Send us a suggestion]({% link contact.md %}). 
 
+<br>
+
 ## Project Data Collection
 We are also interested in understanding the strengths and limitations of existing technologies in providing effective alternative representations. We are gathering feedback to improve how we present the graphics and to support the design of multimodal visualization libraries. Each visualization has an option to submit questions you may have about the graphic or data. Human volunteers will be answering questions. You may opt to receive an email alert when someone has posted an answer. Last, we are also collecting more general information on multimodal data literacy and the state of media accessibility. [Visit our survey]({% link survey.md %}) to learn more or participate.
+
+<br>
 
 ## Datasets In Use
 * [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19)
