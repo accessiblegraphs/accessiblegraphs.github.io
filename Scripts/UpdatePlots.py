@@ -32,69 +32,7 @@ def main():
     
     scrapeCovidRace()
     plotCovidRace()
-    
-    # modifyCovidRace()
-    
-    global APMRace
-    
-    # replace nans with 0
-    APMRace = APMRace.fillna(0)
-    
-    # make instance of Beautiful soup class
-    soup = BeautifulSoup(open("../_includes/plotDeathsByRace.html"), features='html.parser')
-    
-    # save file in archive in case something goes wrong
-    with open(str("../_includes/archive/plotDeathsByRace" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
-              "wb") as f_output:
-        f_output.write(soup.prettify("utf-8"))
-    
-    # Update values in graphics accelerator
-    target = soup.find_all(text=re.compile("valuesCount"))
-    
-    # values to update
-    newValuesCount = APMRace.index.size* 3
-    newNobs = newValuesCount
-    newMin = min(APMRace['Indigenous'].min(), APMRace['Asian'].min(), 
-                 APMRace['Black '].min(), APMRace['Latino'].min(),
-                 APMRace['White'].min(), APMRace['All deaths of known race'].min())
-    newMax = max(APMRace['Indigenous'].max(), APMRace['Asian'].max(), 
-                 APMRace['Black '].max(), APMRace['Latino'].max(),
-                 APMRace['White'].max(), APMRace['All deaths of known race'].max())
-    newData = ''
-    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
-    dataEndStr = '</ValuesList>'
-    dataWindow = dataStartStr + '.*?' + dataEndStr
-    
-    # Data value string
-    for i in range(APMRace.index.size):
-        newData = (newData + '<V>' + 
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Indigenous'].iloc[i]) + 
-                   '</V><V>' + 'Indigenous' + '</V><V>' +
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Asian'].iloc[i]) + 
-                   '</V><V>' + 'Asian' + '</V><V>' +
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Black '].iloc[i]) + 
-                   '</V><V>' + 'Black' + '</V><V>' +
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Latino'].iloc[i]) + 
-                   '</V><V>' + 'Latino' + '</V><V>' +
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['White'].iloc[i]) + 
-                   '</V><V>' + 'White' + '</V><V>' +
-                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['All deaths of known race'].iloc[i]) + 
-                   '</V><V>' + 'All deaths of known race' + '</V>')
-
-    for v in target:
-        #replace valuesCount, nobs, min, max
-        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
-        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
-        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
-        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
-        # replace data values
-        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
-        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
-        v.replace_with(target_new)        
-    
-    with open("../_includes/plotDeathsByRace_test.html", "wb") as f_output:
-        f_output.write(soup.prettify("utf-8")) 
-    
+    modifyCovidRace()
 
 
 def scrapeCovidRace():
@@ -189,6 +127,68 @@ def plotCovidRace():
 
     # Output Image
     fig.write_image("../Images_Plotly/DeathByRace.png",width=1200, height=800, scale=2)
+    
+def modifyCovidRace():
+    
+    global APMRace
+    
+     # replace nans with 0
+    APMRace = APMRace.fillna(0)
+    
+    # make instance of Beautiful soup class
+    soup = BeautifulSoup(open("../_includes/plotDeathsByRace.html"), features='html.parser')
+    
+    # save file in archive in case something goes wrong
+    with open(str("../_includes/archive/plotDeathsByRace" + time.strftime("%Y%m%d-%H%M%S") + ".html"), 
+              "wb") as f_output:
+        f_output.write(soup.prettify("utf-8"))
+    
+    # Update values in graphics accelerator
+    target = soup.find_all(text=re.compile("valuesCount"))
+    
+    # values to update
+    newValuesCount = APMRace.index.size* 6
+    newNobs = newValuesCount
+    newMin = min(APMRace['Indigenous'].min(), APMRace['Asian'].min(), 
+                 APMRace['Black '].min(), APMRace['Latino'].min(),
+                 APMRace['White'].min(), APMRace['All deaths of known race'].min())
+    newMax = max(APMRace['Indigenous'].max(), APMRace['Asian'].max(), 
+                 APMRace['Black '].max(), APMRace['Latino'].max(),
+                 APMRace['White'].max(), APMRace['All deaths of known race'].max())
+    newData = ''
+    dataStartStr = '<ValuesList valuesCount=\"' + str(newValuesCount) + '\" >'
+    dataEndStr = '</ValuesList>'
+    dataWindow = dataStartStr + '.*?' + dataEndStr
+    
+    # Data value string
+    for i in range(APMRace.index.size):
+        newData = (newData + '<V>' + 
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Indigenous'].iloc[i]) + 
+                   '</V><V>' + 'Indigenous' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Asian'].iloc[i]) + 
+                   '</V><V>' + 'Asian' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Black '].iloc[i]) + 
+                   '</V><V>' + 'Black' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['Latino'].iloc[i]) + 
+                   '</V><V>' + 'Latino' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['White'].iloc[i]) + 
+                   '</V><V>' + 'White' + '</V><V>' +
+                   str(APMRace.index[i]) +  '</V><V>' + str(APMRace['All deaths of known race'].iloc[i]) + 
+                   '</V><V>' + 'All deaths of known race' + '</V>')
+
+    for v in target:
+        #replace valuesCount, nobs, min, max
+        target_new = re.sub('valuesCount=.*? ',f'valuesCount=\"{newValuesCount}\" ',v, flags=re.DOTALL)
+        target_new = re.sub('nobs=.*? ',f'nobs=\"{newNobs}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('min=.*? ',f'min=\"{newMin}\" ',target_new, flags=re.DOTALL)
+        target_new = re.sub('max=.*? ',f'max=\"{newMax}\" ',target_new, flags=re.DOTALL)
+        # replace data values
+        target_new = re.sub('<V>.*?</V>','',target_new, flags=re.DOTALL)
+        target_new = re.sub(dataWindow,dataStartStr+newData+dataEndStr,target_new, flags=re.DOTALL)
+        v.replace_with(target_new)        
+    
+    with open("../_includes/plotDeathsByRace.html", "wb") as f_output:
+        f_output.write(soup.prettify("utf-8")) 
     
 def scrapeJHGlobal():
         
