@@ -19,3 +19,7 @@ Use keyboard shortcut G to cycle between categories (Total, White, Black or Afri
 
 {% include tableData.html %}
 
+## Articles In The Media
+
+* [Coronavirus Pandemic Drives Unemployment Up Across U.S. Metro Areas](https://www.wsj.com/articles/coronavirus-pandemic-drives-unemployment-up-across-u-s-metro-areas-11591205949). The Wall Street Journal. Eric Morath. (June 3, 2020).
+* [U.S. Jobless Claims Pass 40 Million: Live Business Updates](https://www.nytimes.com/2020/05/28/business/unemployment-stock-market-coronavirus.html). The New York Times. (May 28, 2020).
