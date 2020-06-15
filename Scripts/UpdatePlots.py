@@ -1,5 +1,7 @@
 # Scrapes and updates relevant web-data into accessiblegraphs website
 # Requires chromdriver installed in usr/local/bin: https://chromedriver.chromium.org/downloads
+
+# if Chromedriver is oudated, run the following command: "brew cask install chromedriver"
 # Dan F and Alexa S
 # April 23, 2020
 
@@ -22,13 +24,13 @@ JHGlobal = []
 APMRace = [];
 def main():
 
-    #scrapeRt()
-    #plotRt()
-    #modifyRt()
+    scrapeRt()
+    plotRt()
+    modifyRt()
     
-    #scrapeJHGlobal()
-    #plotJHGlobal() 
-    #modifyJHGlobal()
+    scrapeJHGlobal()
+    plotJHGlobal() 
+    modifyJHGlobal()
     
     scrapeCovidRace()
     plotCovidRace()
