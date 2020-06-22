@@ -504,14 +504,14 @@ def plotRt():
     
     # plot data
     fig = go.Figure(data=go.Scatter(x=RtData['region'], y=RtData['median'], mode='markers', 
-        name='50% confidence inteval shown',
+        name='80% confidence inteval shown',
             # marker colots                        
             marker=dict(size=15,color=(RtData['median'] < 1).astype('int'), 
                         colorscale=[[0, 'rgb(220, 50, 32)'], [1, 'rgb(0, 90, 181)']]),
             # error bar            
             error_y=dict(type='data', symmetric=False, 
-                         array= RtData['upper_50'] - RtData['median'],
-                         arrayminus= RtData['median'] -RtData['lower_50'])))
+                         array= RtData['upper_80'] - RtData['median'],
+                         arrayminus= RtData['median'] -RtData['lower_80'])))
                                     
     
     # Plot layout settings
