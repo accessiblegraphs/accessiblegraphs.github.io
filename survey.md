@@ -9,4 +9,4 @@ Data graphics are increasingly presented in many aspects of data-driven news, ye
 
 In the survey, you may provide an email to participate in a raffle for an Amazon gift card for 15USD. You do not need to complete the survey in order to enter the raffle. The raffle will be conducted after the survey ends at the end of July. Participants who opt to participate will be notified through the provided email.
 
-## This survey has closed.
+## This survey has closed. Raffle winners have been notified. 
