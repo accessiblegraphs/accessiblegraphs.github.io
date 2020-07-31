@@ -5,7 +5,11 @@ layout: study
 
 Dataset showing trends (new cases by day, total cases, total rate per 100000) is available for the following states:
 
-* [New Hampshire]({% link newHampshire.md %})
 * [Maine]({% link maine.md %})
 * [Montana]({% link montana.md %})
+* [New Hampshire]({% link newHampshire.md %})
+* [North Dakota]({% link northDakota.md %})
 * [Rhode Island]({% link rhodeisland.md %})
+* [South Dakota]({% link southDakota.md %})
+* [Wyoming]({% link wyoming.md %})
+* [Vermont]({% link vermont.md %})
