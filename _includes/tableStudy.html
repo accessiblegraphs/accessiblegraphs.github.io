@@ -1,0 +1,17 @@
+{% if page.dataset %}
+
+<h2>Browse the Dataset</h2>
+
+<div class="row" id='{{ page.dataset }}'></div>
+
+<script type="text/javascript">
+  CsvToHtmlTable.init({
+    csv_path: '{{ site.baseurl }}Dataset/study/{{ page.dataset }}/dataset.csv',
+    element: '{{ page.dataset }}', 
+    allow_download: true,
+    csv_options: {separator: ',', delimiter: '"'},
+    datatables_options: {"paging": false, "ordering": false}
+  });
+</script>
+
+{% endif %}
