@@ -7,7 +7,7 @@ Dataset showing trends (new cases by day, total cases, total rate per 100000) is
 
 * [Maine]({% link maine.md %})
 * [Montana]({% link montana.md %})
-* [New Hampshire]({% link newHampshire.md %})
+* [New Hampshire]({% link nh.md %})
 * [North Dakota]({% link northdakota.md %})
 * [Rhode Island]({% link rhodeisland.md %})
 * [South Dakota]({% link southdakota.md %})
