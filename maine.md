@@ -9,11 +9,11 @@ dataset: 'maine'
 
 
 ## Total Cases
-<img src="{{site.baseurl}}/images/study/maine/TotalCases.png" class="img-responsive" alt=""> 
+<img src="{{site.baseurl}}/images/study/maine/TotalCases.png" class="img-responsive" alt="This is a line graph, titled Total Cases in Maine Reported to CDC, showing 1 line. The horizontal x-axis is labeled Date, and ranges from January 22 to July 29. The vertical y-axis ranges from 0 to 4000 in increments of 500. Line 1 is blue and has a trend of initially flat at zero and sharply increases in mid-March with a steady linear increase to 3888 until the latest date of July 29."> 
 
 
 ## Total Rate per 100000
-<img src="{{site.baseurl}}/images/study/maine/TotalRate.png" class="img-responsive" alt=""> 
+<img src="{{site.baseurl}}/images/study/maine/TotalRate.png" class="img-responsive" alt="This is a line graph, titled Total Rate Per 100000 in Maine Reported to CDC, showing 1 line. The horizontal x-axis is labeled Date, and ranges from January 22 to July 29. The vertical y-axis ranges from 0 to 300 in increments of 20. Line 1 is blue and has a trend of initially flat at zero and sharply increases in mid-March with a steady linear increase to 291 until the latest date of July 29."> 
 
 
 {% include tableStudy.html %}
