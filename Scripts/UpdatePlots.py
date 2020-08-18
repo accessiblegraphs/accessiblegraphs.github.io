@@ -86,23 +86,23 @@ def plotCovidRace():
     fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Indigenous'], mode='markers', 
         name='Indigenous', marker_symbol='circle-open',
             # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
+            marker=dict(size=12, line=dict(width = 3), color='rgb(230,159,0)')))
     fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Asian'], mode='markers', 
-        name='Asian', marker_symbol='circle-open',
+        name='Asian', marker_symbol='square-open',
             # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
+            marker=dict(size=12, line=dict(width = 3), color='rgb(86,180,233)')))
     fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Black '], mode='markers', 
-        name='Black', marker_symbol='circle-open',
+        name='Black', marker_symbol='diamond-open',
             # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
+            marker=dict(size=12, line=dict(width = 3), color='rgb(0,144,178)')))
     fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['Latino'], mode='markers', 
-        name='Latino', marker_symbol='circle-open',
+        name='Latino', marker_symbol='cross-open',
             # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
+            marker=dict(size=12, line=dict(width = 3), color='rgb(213,94,0)')))
     fig.add_trace(go.Scatter(x=APMRace.index, y=APMRace['White'], mode='markers', 
-        name='White', marker_symbol='circle-open',
+        name='White', marker_symbol='triangle-up-open',
             # marker colors                        
-            marker=dict(size=12, line=dict(width = 3))))
+            marker=dict(size=12, line=dict(width = 3), color='rgb(0,158,115)')))
     
     
     # Plot layout settings
