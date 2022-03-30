@@ -1,10 +1,14 @@
 ---
 layout: default
-title: 'Covid-19 Deaths By Race'
+title: 'Webpage Status Update'
 plot: 'plotDeathsByRace'
 dataset: 'APMRace'
 lastUpdated: 'June 5, 2020'
 ---
+
+The webpage is no longer being supported and the data is not longer up to date. [CVStats](https://cvstats.net/) provides updated information about the current state of the pandemic.
+
+## COVID-19 Deaths by Race
 
 While Covid-19 has claimed over 100,000 lives in the United States from people across age, race, and gender spectrums, some populations are more impacted than others. The chart below shows the number of Covid-19 deaths per 100,000 people of several races (y-axis) across regions (x-axis) in the US. The data is provided by [The American Public Media Research Lab](https://www.apmresearchlab.org/covid/deaths-by-race#data). The high death-rate of African Americans and Indegenous Americans compared to people of other race groups reveal deep inequalities about race in the US.
 

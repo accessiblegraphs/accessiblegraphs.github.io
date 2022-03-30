@@ -1,10 +1,14 @@
 ---
 layout: default
-title: 'Civilian Unemployment Rate'
+title: 'Webpage Status Update'
 plot: 'plotUnemployment'
 dataset: 'unemployment'
 lastUpdated: 'June 8, 2020'
 ---
+
+The webpage is no longer being supported and the data is not longer up to date. [CVStats](https://cvstats.net/) provides updated information about the current state of the pandemic.
+
+## COVID and Unemployment
 
 The COVID-19 pandemic is affecting daily life for the entire country and unemployment rate have seen a dramatic increase in the past few months. Civilian unemployment rate from May 2000 to May 2020 are shown below. The data is provided by the [U.S. Bureau of Labor Statistics](https://www.bls.gov/charts/employment-situation/civilian-unemployment-rate.htm). The chart shows Total unemployment rate and breakdown by race (White, Black or African American) and ethnicity (Hispanic or Latino). Pay close attention to changes in the last months between March and May.
 

@@ -1,10 +1,15 @@
 ---
 layout: default
-title: 'Rt: Effective Reproduction Rates'
+title: 'Webpage Status Update'
 plot: 'plotRt'
 dataset: 'rt'
-lastUpdated: 'June 22, 2020'
+lastUpdated: 'August 15, 2020'
 ---
+
+
+The webpage is no longer being supported and the data is not longer up to date. [CVStats](https://cvstats.net/) provides updated information about the current state of the pandemic.
+
+## Reproduction Rate
 
 State-by-state effective reproduction rates for Covid-19 is provided by the bar graph below. The data is updated daily from [Rt.Live](https://rt.live/). The model for calculating Rt was made and is updated by Kevin Systrom and Thomas Vledeck.
 

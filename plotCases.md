@@ -1,9 +1,13 @@
 ---
 layout: default
-title: 'Global Evolution of Covid-19 Cases'
+title: 'Webpage Status Update'
 dataset: 'GlobalTimeSeries'
 lastUpdated: 'June 9, 2020'
 ---
+
+The webpage is no longer being supported and the data is not longer up to date. [CVStats](https://cvstats.net/) provides updated information about the current state of the pandemic.
+
+## COVID Confirmed Cases Tracking
 
 The number of new confirmed Covid-19 cases and total number of confirmed Covid-19 cases are in graphs below. The data is updated daily with the [Johns Hopkins CSSE database](https://github.com/CSSEGISandData/COVID-19).
 
