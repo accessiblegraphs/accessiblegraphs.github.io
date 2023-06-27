@@ -3,9 +3,9 @@ title: 'Making Data More Accessible for Screen Reader Users'
 layout: default
 ---
 
-<img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt="Three examples of data visualizations to inform the public about the COVID-19 pandemic. The first is title flatten the curve, and shows two bell-shaped distributions. One distribution is tall and narrow, indicating a large peak in cases above a dashed line that represents the healthcare capacity level. The other distribution is short and wide, indicating a small drawn-out peak in cases that stays below the healthcare capacity line. The secon graph shows the reproduction rate of the virus, on the y-axis by state, on the x-axis. The third shows the number of tests conducted by the CDC and US Public labs over time."> 
+<img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt="Three examples of data visualizations to inform the public about the COVID-19 pandemic. The first is titled flatten the curve, and shows two bell-shaped distributions. One distribution is tall and narrow, indicating a large peak in cases above a dashed line that represents the healthcare capacity level. The other distribution is short and wide, indicating a small drawn-out peak in cases that stays below the healthcare capacity line. The second graph shows the reproduction rate of the virus, on the y-axis, by state, on the x-axis. The third shows the number of tests conducted by the CDC and US Public labs over time."> 
 
-Data visualization has become an increasingly important means of effective data communication in this data-driven age. The COVID-19 pandemic for example has highlighted through COVID case trackers and *flattening the curve*  the important role that visualizations play in guiding important decisions by policy-makers, businessess, as well as the general public. However, accessible data representations have lagged behind for people who are blind, many of whom rely on [screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) to interact with digital information on computers or mobile phones.
+Data visualization has become an increasingly important means of effective data communication in this data-driven age. The COVID-19 pandemic for example has highlighted through COVID case trackers and *flattening the curve*  the important role that visualizations play in guiding important decisions by policy-makers, businessess, as well as the general public. However, accessible data representations have lagged behind for people who are blind, many of whom rely on [screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) to read and interact with digital information on computers, tablets, and phones.
 
 # How accessible are current visualizations?
 
@@ -13,7 +13,7 @@ In our [study on the accessibility of COVID-19 visualizations on the web](https:
 
 Of 76 visualizations audited from top-ranked Google Search websites on the COVID-19 pandemic:
 
-* 16% were rated by expert auditors to as very or extremely accessible, whereas 71% were rated as slightly or not at all accessible.
+* 16% were rated by expert auditors to as very or extremely accessible, whereas 71% were rated as slightly or not at all accessible for screen readers users.
 * 15% supported screen reader access to specific data points.
 * 5% conveyed any form of trends or patterns to screen readers.
 * 43% provided accessible tabular representations.
@@ -37,11 +37,11 @@ Of 12 screen reader users interviewed, we found that:
 
 ### As practitioners: 
 
-* Consider accessibility from the beginning and use libraries that support direct screen-reader access. [HighCharts](https://www.highcharts.com/docs/accessibility/accessibility-module), [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/), [Apple Audio Graphs](https://developer.apple.com/documentation/accessibility/audio_graphs), [VoxLens](https://github.com/athersharif/voxlens), and [Chart Reader](https://github.com/microsoft/chart-reader) are several. 
+* Consider accessibility from the beginning and use libraries that support direct screen-reader access to the data. [HighCharts](https://www.highcharts.com/docs/accessibility/accessibility-module), [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/), [Apple Audio Graphs](https://developer.apple.com/documentation/accessibility/audio_graphs), [VoxLens](https://github.com/athersharif/voxlens), and [Chart Reader](https://github.com/microsoft/chart-reader) are several. 
 * Review the [Chartability](https://chartability.fizz.studio/) heuristics and assess the accessibility of your data experience.
-* Provide multiple complementary methods of access to support users of different screen reader configurations, experiences, and preferences. Providing downloadable data files allows users to explore the data through the familiarity of their own tools.
-* Implement visualization experiences that are complete. Specifically, the update frequency, data source, download features, and alternative representations should be easily accessible through each visualization experience.
-* Consider screen reader experiences as narratives. Provide contextual overviews before specific data points and details. Situate the data points and details contextually as users interact with the visualization.
+* Consider providing multiple complementary methods of access to support users of different screen reader configurations, experiences, and preferences. Providing downloadable data files allows users to explore the data through the familiarity of their own tools.
+* Screen readers present materials sequentially. Consider screen reader experiences as narratives. Provide contextual overviews before specific data points and details. Situate the data points and details contextually as users interact with the visualization.
+* Implement visualization experiences that are complete. Specifically, the update frequency, data source, download features, and alternative representations should be easily accessible through each visualization experience (e.g. place these details in the same header as the visualization).
 * Consider the diversity of user background and data literacy experiences when introducing new visualization features. Provide instuctions for how to interpret visualization content.
 
 ### As researchers: 
