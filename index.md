@@ -49,6 +49,14 @@ Of 127 screen reader users surveyed:
 
 You can learn more about our study through our paper titled  <a href="/Papers/TheAccessibilityOfDataVisualizationsOnTheWebForScreenReaderUsers.pdf" target="_target"> The Accessibility of Data Visualizations on the Web for Screen Reader Users: Practices and Experiences During COVID-19 </a>.
 
+### Additional Reading and Resources:
+
+* [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/): Guidelines for web accessibility.
+* [Chartability](https://chartability.fizz.studio/): Heristics for making data experience more accessible. 
+* [Our paper](https://dl.acm.org/doi/10.1145/3557899): Reporting on data accessibility on the web.
+* [Sharif et. al.'s paper](https://dl.acm.org/doi/10.1145/3441852.3471202): Understanding screen readers' experience with online data visualizations.
+* [HighCharts](https://www.highcharts.com/docs/accessibility/accessibility-module), [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/), [Apple Audio Graphs](https://developer.apple.com/documentation/accessibility/audio_graphs), [VoxLens](https://github.com/athersharif/voxlens), and [Chart Reader](https://github.com/microsoft/chart-reader): Libraries with screen reader access.
+
 The Accessible Graphics project is a collaboration between reseachers at Stanford University and the Uniersity of Michigan to better understand the state of data accessibility on the web for screen reader users during the COVID-19 pandemic. 
 
 
