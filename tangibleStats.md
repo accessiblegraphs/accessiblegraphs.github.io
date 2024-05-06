@@ -57,19 +57,27 @@ Text labels on the diagram describe these features and are listed as bullet poin
 
 We explore the use of embodied analogies, which draw parallels between bodily experiences and abstract concepts, to help promote intuition of statistical measures.
 
+<header style="color: #2C716F; text-align: center;"> 
+<h3>4a Embodied Mean</h3>
+</header>
 The platform supports the analogy of center-of-balance to assist learners in developing intuition for statistical mean, illustrated through the following three figures:
 
-<img src="{{site.baseurl}}/images/TStats1.png" class="img-responsive" alt="The first image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. A set of tokens form a left-skewed distribution on the statistical platform. A white slider is positioned at the center-of-balance which levels the board. A hand is about to add two tokens to the very left of the distribution."> 
+<img src="{{site.baseurl}}/images/TStats1.png" width = 500 class="img-responsive" alt="The first image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. A set of tokens form a left-skewed distribution on the statistical platform. A white slider is positioned at the center-of-balance which levels the board. A hand is about to add two tokens to the very left of the distribution."> 
 Figure 1: The physicalization is level when the emulated fulcrum is positioned at the statistical mean, which is the geometric center of balance.
 
-<img src="{{site.baseurl}}/images/TStats2.png" class="img-responsive" alt="The second image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. The newly added tokens cause the board and physicalization to tilt left."> 
+<img src="{{site.baseurl}}/images/TStats2.png" width = 500 class="img-responsive" alt="The second image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. The newly added tokens cause the board and physicalization to tilt left."> 
 Figure 2: As students modify the data, they feel the impact of these modifications reflected in the board’s tilt toward the updated mean.
 
-<img src="{{site.baseurl}}/images/TStats3.png" class="img-responsive" alt="The third image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. A hand moves the white slider to the new center-of-balance, which re-levels the board."> 
+<img src="{{site.baseurl}}/images/TStats3.png" width = 500 class="img-responsive" alt="The third image in a sequence of three images showing the use of center-of-balance to help students gain intuition for statistical mean. A hand moves the white slider to the new center-of-balance, which re-levels the board."> 
 Figure 3: The distance students need to adjust the fulcrum to re-balance the mean physically demonstrates the sensitivity of the mean to the modifications.
 
+<header style="color: #2C716F; text-align: center;"> 
+<h3>4b Embodied Median</h3>
+</header>
+
 The platform also supports the interaction of exploring percentiles through feeling symmetry across the median, illustrated through the following figure:
-<img src="{{site.baseurl}}/images/TStats4.png" class="img-responsive" alt="A set of tokens form a left-skewed distribution on the statistical platform. The stack containing the median value is labeled. When students press on a stack of values on one side of the median, they feel symmetric stacks vibrating on the other side of the median. The figure uses different colors to highlight the correspondence between different stacks of the physicalization, and how they converge to the stack containing the median."> 
+
+<img src="{{site.baseurl}}/images/TStats4.png" width = 500 class="img-responsive" alt="A set of tokens form a left-skewed distribution on the statistical platform. The stack containing the median value is labeled. When students press on a stack of values on one side of the median, they feel symmetric stacks vibrating on the other side of the median. The figure uses different colors to highlight the correspondence between different stacks of the physicalization, and how they converge to the stack containing the median."> 
 Figure 4: Students can press and hold token stacks to hear their percentiles spoken and feel vibrations from symmetric stacks mirrored across the median. Students can narrow in on the median by feeling vibrations converge using an outside-in approach.
 
 You can learn more about our study through our paper titled: Tangible Stats: Embodied and Multimodal Platform for Teaching Data and Statistics to Blind and Low-Vision Students <a href="/Papers/Fan2024TangibleStats.pdf" target="_target"> here.
