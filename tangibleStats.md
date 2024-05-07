@@ -58,7 +58,7 @@ Text labels on the diagram describe these features and are listed as bullet poin
 We explore the use of embodied analogies, which draw parallels between bodily experiences and abstract concepts, to help promote intuition of statistical measures.
 
 <header style="color: #2C716F; text-align: center;"> 
-<h3>4a Embodied Mean</h3>
+<h3>4.1 Embodied Mean</h3>
 </header>
 The platform supports the analogy of center-of-balance to assist learners in developing intuition for statistical mean, illustrated through the following three figures:
 
@@ -72,7 +72,7 @@ Figure 2: As students modify the data, they feel the impact of these modificatio
 Figure 3: The distance students need to adjust the fulcrum to re-balance the mean physically demonstrates the sensitivity of the mean to the modifications.
 
 <header style="color: #2C716F; text-align: center;"> 
-<h3>4b Embodied Median</h3>
+<h3>4.2 Embodied Median</h3>
 </header>
 
 The platform also supports the interaction of exploring percentiles through feeling symmetry across the median, illustrated through the following figure:
