@@ -1,0 +1,901 @@
+<!-- ######### JAVASCRIP LIBRARY IMPORTS ######### -->
+<!-- in-browser sonification based off of tutorials by Mike Mulshine, Hongchan Choi, others -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--- make responsive for mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<!-- Highchart support -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- MathType Support -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@12.2.0/lib/browser/math.min.js"></script>
+<!--- link in some css formatting for the ACE editor -->
+  <link rel="stylesheet" href="https://ccrma.stanford.edu/~cc/220a/webchuck220a/css/editor.css">
+<!--- include the ACE editor and our webchuck stuff -->
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/ace.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/editor.js"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/defer.js"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/webchuck_host.js"></script>
+</head>
+
+<!--- ######### HTML COMPONENTS ######### -->
+<h2> Tempo Sonification Exploration </h2>
+<p>An exploration of using the tempo sonification scheme</p>
+
+    <!-- LOAD CSV -->
+    <h3>Option A: Load CSV</h3>
+        <input type="file" id="csvInput" accept=".csv">
+
+    <!-- LOAD EQUATION -->
+    <h3>Option B: Construct Own Function</h3>
+        <label for="equation">Equation: </label>
+        <input type="text" id="equation" placeholder="e.g., x^2 + 2*x + 1">
+        <br><br>
+
+        <label for="xStart">X Start: </label>
+        <input type="text" id="xStart" value = "0">
+        <label for="xEnd">X End: </label>
+        <input type="text" id="xEnd" value = "10">
+        <br>
+
+        <label for="audioLength">Audio Length (s): </label>
+        <input type="text" id="audioLength" value = "10">
+        <br><br>
+
+        Optional:
+        <br>
+        <label for="yLow">Y Low: </label>
+        <input type="text" id="yLow" placeholder="e.g., -5">
+        <label for="yHigh">Y High: </label>
+        <input type="text" id="yHigh" placeholder="e.g., 5">
+        <br><br>
+
+        <input id="plotEquationButton" type="button" value="Plot Equation" /> 
+
+    <!-- Presets for Study -->
+    <h3>For Study</h3> 
+
+        <div class = "row">
+            <div class = "column">
+                <label for="timeLength">Time Length (s): </label>
+                <input type="text" id="timeLength" value = "5">
+                <br>
+                <!-- <label for="xStartS">X Start: </label>
+                <input type="text" id="xStartS" value = "0">
+                <label for="xEndS">X End: </label>
+                <input type="text" id="xEndS" value = "10"> -->
+                <br>
+
+                <!-- LINEAR in MIDI/s -->
+                <label>
+                <input type="radio" value="linearParamCheckbox" name = "study">
+                    Linear
+                </label>
+                <div id="LinearParam1" class="shown">
+                    Ref Intercept (MIDI): <input type="text" id = "linIntercept" value = "65">
+                    Ref Slope (MIDI/s): <input type="text" id = "linSlope" value = "1">
+                </div>
+                <!-- <div id="LinearParam1" class="shown">
+                    Ref Slope (MIDI/s): <input type="text" id = "linSlope" value = "1">
+                </div> -->
+                <div id="LinearParam2" class="shown">
+                    Comp Intercept (MIDI): <input type="text" id = "linIntercept2" value = "65">
+                    Comp Slope (MIDI/s): <input type="text" id = "linSlope2" value = "1">
+                </div>
+                <!-- <div id="LinearParam3" class="shown">
+                    Comp Slope (MIDI/s): <input type="text" id = "linSlope2" value = "1">
+                </div> -->
+                <input id="randomizeInterceptButton" type="button" value="Randomize Intercepts" /> 
+                <br><br>
+
+                <!-- CURVATURE in MIDI/s^2 -->
+                <label>
+                    <input type="radio" value="curvatureParamCheckbox" name = "study">
+                    Curvature:
+                </label>
+                <div id="curveParam3" class="shown"> 
+                    Intercept (MIDI): <input type="text" id = "curvIntercept" value = "60">
+                </div>
+                <div id="curveParam2" class="shown"> 
+                    Slope (MIDI/s): <input type="text" id = "curvSlope" value = "0">
+                </div>
+                <div id="curveParam1" class="shown"> 
+                    Curvature (MIDI/s^2): <input type="text" id = "curvAccel" value = "0.1">
+                </div>
+                <br>
+
+                <!-- RANDOM DATA -->
+                <label>
+                    <input type="radio" value="randomValueCheckbox" name = "study">
+                        Random Data Generation
+                </label>
+                <div id="curveParam" class="shown"> 
+                    Number of Points: <input type="text" id = "numRandomPoints" value = "10">
+                </div>
+                <input id="studyButton" type="button" value="Plot" /> 
+            </div>
+
+            <!-- Viz Container -->
+            <div class = "column">
+                <div id="my_dataviz"></div> 
+                <br>
+                <input id="showChartButton" type="button" value="Show Chart" /> 
+                <input id="hideChartButton" type="button" value="Hide Chart" /> 
+            </div>
+        </div>
+
+        <style>
+            .column {
+            float: left;
+            width: 50%;
+            }
+            /* Clear floats after the columns */
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+
+
+<h2>Toggles</h2>
+
+    <label>
+        Play interpolating notes:
+        <form>
+        <input type="radio" value="traditional" name="mode" checked> Traditional <br>
+        <input type="radio" value="x" name="mode"> Equal X Interpolation <br>
+        <input type="radio" value="y" name="mode"> Equal Y Interpolation <br>
+        </form>
+    </label>
+
+    <!--- Start and Stop Elements -->
+    <p>
+    <input id="startButton" type="button" value="Start" /> 
+    <input id="startButton2" type="button" value="Start 2" />
+    <input id="stopButton" type="button" value="Stop" /> <br/><br/>
+    <input id="choice1Button" type="button" value="Choice 1" /> 
+    <input id="choice2Button" type="button" value="Choice 2" /> 
+    </p>
+
+
+<!--- Chuck editor blocks with Chuck code -->
+<!-- Tempo Sonification -->
+<pre><div id="liveCodeEditor" class="ace_editor ace_hidpi ace-chuck">  
+//*** VARIABLE LEGEND  
+// nVals: number of values 
+// x: x values (normalized between 0 and 1)
+// y: y values (normalized between 0 and 1)
+// dx, dy
+// maxdy: maximum dy
+// absdYSum: total range of y movement
+// fs: sampling frequency for user equation
+// totalSecCont: number of seconds for playing equation
+
+50::ms => now;  
+    
+//**** AUDIO SETUP
+SinOsc m => ADSR e => dac;
+// attack, decay, sustain, release
+e.set( 10::ms, 8::ms, .5, 10::ms );
+
+//**** SONIFICATION PARAMETERS
+50 => float minMIDI; // highest pitch
+80 => float maxMIDI; // lowest pitch
+    
+1 => float avgSecPerPtDes; // average second per point discrete case
+0.8 => float onFraction;  // proportion of alloted time oscillator placys
+
+//**** PRE-SONIFICATION COMPUTATION
+
+// if source is traditional, no normalization, each plot same length (for user trials)
+totalSecCont => float pauseCoeff;
+
+// if source is csv, compute pause coefficient so that each data point gets scaled by number of values
+if(source == 0){
+    nVals * avgSecPerPtDes => pauseCoeff; // * maxdY * (maxMIDI - minMIDI) => pauseCoeff;
+}
+
+// if user defined functon with traditional sonification, keep every unit step
+if(source == 1 && mode == "traditional"){
+    float xTemp[0];
+    float yTemp[0];
+    Std.ftoi(Math.round(1000 * totalSecCont / xRange)) => int xStep;
+    for(0 => int i; i < x.size(); i + xStep => i){
+        xTemp << x[i];
+        yTemp << y[i];
+    }
+    x.clear();
+    y.clear();
+    for(0 => int i; i < xTemp.size(); i++){
+        x << xTemp[i];
+        y << yTemp[i];
+    }
+    x.size() => nVals;
+}
+
+// if user defined functon with y sonification, compute every binned change in y
+if(source == 1 && mode == "y"){
+    float xTemp[0];
+    float yTemp[0];
+    float prevNote;
+    for(0 => int i; i < x.size(); i++){
+        Std.mtof(Math.floor(y[i]*(maxMIDI - minMIDI)+minMIDI)) => float note;
+        if(note != prevNote){
+            xTemp << x[i];
+            yTemp << y[i];
+            note => prevNote;
+        }
+    }
+    x.clear();
+    y.clear();
+    for(0 => int i; i < xTemp.size(); i++){
+        x << xTemp[i];
+        y << yTemp[i];
+    }
+    x.size() => nVals;
+}
+
+// if user defined functon with x sonification, match n of equivalent y sonification
+if(source == 1 && mode == "x"){
+    0 => int counter;
+    float prevNote;
+    for(0 => int i; i < x.size(); i++){
+        Std.mtof(Math.floor(y[i]*(maxMIDI - minMIDI)+minMIDI)) => float note;
+        if(note != prevNote){
+            counter++;
+            note => prevNote;
+        }
+    }
+    float xTemp[0];
+    float yTemp[0];
+    Std.ftoi(Math.round(1000 * totalSecCont / (counter - 1))) => int xStep;
+    for(0 => int i; i < x.size(); i + xStep => i){
+        xTemp << x[i];
+        yTemp << y[i];
+    }
+    x.clear();
+    y.clear();
+    for(0 => int i; i < xTemp.size(); i++){
+        x << xTemp[i];
+        y << yTemp[i];
+    }
+    x.size() => nVals;
+}
+
+// compute difference array for x and y
+float dx[0]; // initialize dx array
+float dy[0]; // initialize dy array
+for (1 => int i; i < x.size(); i++) {
+    dx << x[i] - x[i - 1];
+    dy << y[i] - y[i - 1];
+}
+
+// compute total number of steps
+0 => float absdYSum;
+// as well as the highest dY
+0 => float maxdY;
+for(0 => int i; i < dy.size(); i++){
+    Math.fabs(dy[i]) => float absVal;
+    absdYSum + absVal => absdYSum;
+    if(absVal > maxdY){
+        absVal => maxdY;
+    }
+}
+
+// for x interpolation mode, compute equal intervals so that total note count similar to y interpolation (as comparison)
+0 => float xMiniSteps;
+if(mode == "x"){
+    Math.round(absdYSum * (maxMIDI - minMIDI) / (nVals - 1)) => xMiniSteps;
+}
+
+//**** SONIFYING DIFFERENT OPTIONS
+
+if(mode == "traditional" && source == 0){
+    traditionalSonify(dx, y);
+}
+
+if(mode == "x" && source == 0){
+    xInterpSonify(dx, y, dy, xMiniSteps);
+}
+
+if(mode == "y" && source == 0){
+    yInterpSonify(dx, y, dy);
+}
+
+if(source == 1){
+    traditionalSonify(dx, y);
+}
+
+//**** HELPER FUNCTIONS
+
+// sonifies according to dx (timing) and y (pitch)
+// requires updated dx and y
+private void traditionalSonify(float dx[], float y[]){
+    // looping through each value to sonify
+    for (0 => int i; i < nVals; i++) {
+            
+        0.9 => m.gain;
+            
+        // set main note frequency and play
+        Std.mtof(y[i]*(maxMIDI - minMIDI)+minMIDI) => m.freq; // data values in range 0 - 1
+        e.keyOn();
+        
+            // if not the last note
+            if(i < nVals - 1){
+                // play note
+                playNote(dx[i] * pauseCoeff);
+        }
+    }
+    // hold primary note one last time
+    playNote(dx[nVals - 2] * pauseCoeff);
+}
+
+// sonifies with equal interval x interpolations
+// requires updated dx, y, dy, xMiniSteps
+private void xInterpSonify(float dx[], float y[], float dy[], float xMiniSteps){
+    // looping through each value to sonify
+    for (0 => int i; i < nVals; i++) {
+        0.9 => m.gain;
+            
+        // set main note frequency and play
+        Std.mtof(y[i]*(maxMIDI - minMIDI)+minMIDI) => m.freq; // data values in range 0 - 1
+        e.keyOn();
+        
+        // if not the last note
+        if(i < nVals - 1){
+            
+            // if there are more than one steps
+            if(xMiniSteps > 1){
+                // for the Midi notes to be played
+                for (1 => int j; j < xMiniSteps; j++){
+                    
+                    // hold filler note for intermediary time
+                    playNote(dx[i] * pauseCoeff / xMiniSteps);
+                
+                    0.1 => m.gain;
+                    // set intermediary note frequency
+                    Std.mtof(y[i] * (maxMIDI - minMIDI) + minMIDI + j * (maxMIDI - minMIDI) * dy[i] / xMiniSteps) => m.freq;
+                    e.keyOn();
+                    
+                }
+                // hold filler note for intermediary time one last time
+                playNote(dx[i] * pauseCoeff / xMiniSteps);
+    
+            // else if not more than one Midi step    
+            } else if (xMiniSteps <= 1){
+                // hold primary note
+                playNote(dx[i] * pauseCoeff);
+            }
+        }
+    }
+    // hold primary note one last time
+    playNote(dx[nVals - 2] * pauseCoeff);
+}
+
+// sonifies with equal interval y interpolations
+// requires updated dx, y, dy
+private void yInterpSonify(float dx[], float y[], float dy[]){
+    // looping through each value to sonify
+    for (0 => int i; i < nVals; i++) {
+            
+        0.9 => m.gain;
+            
+        // set main note frequency and play
+        Std.mtof(Math.floor(y[i]*(maxMIDI - minMIDI)+minMIDI)) => m.freq; // data values in range 0 - 1
+        e.keyOn();
+        
+        // if not the last note
+        if(i < nVals - 1){
+            
+            // IF Y INTERP MODE
+            if(mode == "y"){
+                // compute number of mini-steps until next note
+                Math.sgn(dy[i]) * Math.floor(dy[i]*(maxMIDI - minMIDI)) => float miniSteps;
+                    
+                // if there are more than one Midi steps to take in either positive or negative direction
+                if(miniSteps > 1){
+                
+                    // for the Midi notes to be played
+                    for (1 => int j; j < miniSteps; j++){
+                
+                        // hold filler note for intermediary time
+                        playNote(dx[i] * pauseCoeff / miniSteps);
+                    
+                        0.1 => m.gain;
+                        // set intermediary note frequency
+                        Std.mtof(Math.floor(y[i]*(maxMIDI - minMIDI) + minMIDI + Math.sgn(dy[i]) * j)) => m.freq;
+                        e.keyOn();
+                        
+                    }
+                    // hold filler note for intermediary time one last time
+                    playNote(dx[i] * pauseCoeff / miniSteps);
+                
+                // else if not more than one Midi step    
+                } else if (miniSteps <= 1){
+            
+                    // hold primary note
+                    playNote(dx[i] * pauseCoeff);
+                }
+            } 
+        }    
+    }
+    // hold primary note one last time
+    playNote(dx[nVals - 2] * pauseCoeff);
+}
+
+// handles playing notes, which involves toggling envelope on and off
+// noteDuration: seconds
+private void playNote(float noteDuration){
+    onFraction * noteDuration ::second => now;
+    e.keyOff();
+    (1 - onFraction) * noteDuration ::second => now;
+}      
+</div></pre>
+
+<script type="module" defer> 
+
+import { Chuck } from 'https://cdn.jsdelivr.net/npm/webchuck/+esm';
+
+// GLOBAL VARIABLES
+var data;
+var data2;
+var normX = [];
+var normY = [];
+var xRange = 0;
+var audioLength;
+var randomOrder = 0; // randomized variable for reference first or second
+
+var source = 0; // 0: csv upload, 1: defined function
+var diffStudy = 0; // flag for if a differentiating study (in which 2 series are used)
+var customNorm = 0; // if custom normalization required
+
+var fileName = ""; // file for saving data
+
+
+// 0a. INPUT CSV
+document.getElementById('csvInput').addEventListener('change', handleFile);
+
+// handle csv file
+async function handleFile(event) {
+    diffStudy = 0;
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const csvContent = e.target.result;
+            data = parseCSV(csvContent);
+            drawLineGraph(data);
+            normX = normalizeArrayValues(data.x);
+            normY = normalizeArrayValues(data.y);
+            startButton.disabled = false;
+        };
+
+        reader.readAsText(file);
+        source = 0;
+    } else {
+        console.error('No file selected');
+    }
+    updateLabel();
+    customNorm = 0;
+}
+
+// Function to parse CSV data
+function parseCSV(csv){
+  try {
+    var lines = csv.split('\n');
+    var result = {
+      x: [],
+      y: []
+    };
+    for (var i = 1; i < lines.length; i++) {
+      var parts = lines[i].split(',');
+      if(!isNaN(parts[0]) && !isNaN(parts[1])){
+        result.x.push(parts[0]);
+        result.y.push(parseFloat(parts[1]));
+      }
+    }
+    return result;
+  } catch (error) { // print a message if something goes wrong
+    throw Error("Error Parsing CSV");
+  }
+};
+
+// 0b. INPUT EQUATION
+var equationButton = document.getElementById("plotEquationButton" );
+var studyButton = document.getElementById("studyButton");
+
+// IF CUSTOM EQUATION BUTTON SELECTED
+equationButton.addEventListener( "click", async function() {
+  diffStudy = 0;
+  // Get input values
+  const equationInput = document.getElementById('equation').value;
+  const xStart = parseFloat(document.getElementById('xStart').value);
+  const xEnd = parseFloat(document.getElementById('xEnd').value);
+  const yLow = parseFloat(document.getElementById('yLow').value);
+  const yHigh = parseFloat(document.getElementById('yHigh').value);
+  audioLength = parseFloat(document.getElementById('audioLength').value);
+  xRange = xEnd - xStart;
+
+  // Validate input
+  if (isNaN(xStart) || isNaN(xEnd)) {
+    alert('Invalid x range input');
+    return;
+  }
+
+  data = generateDataFromEquation(equationInput, xStart, xEnd, audioLength);
+  drawLineGraph(data);
+
+  normX = [];
+  normY = [];
+  normX = normalizeArrayValues(data.x);
+  // normalize by max and min if assigned yrange
+  if(!isNaN(yLow) && !isNaN(yHigh)){
+    normY = normalizeArrayValues(data.y, manual = 1, min = yLow, max = yHigh);
+  // normalize to 0 and 1
+  } else {
+    normY = normalizeArrayValues(data.y);
+  }
+  startButton.disabled = false;
+  source = 1;
+  updateLabel();
+  customNorm = 0;
+});
+
+// IF STUDY BUTTON SELECTED 
+studyButton.addEventListener( "click", async function() {
+    // check selected radio and handle accordingly
+    var studyType = document.querySelector('input[name="study"]:checked').value;
+    // get time length and # of points
+    audioLength = parseFloat(document.getElementById('timeLength').value);
+    //const xStartS = parseFloat(document.getElementById('xStartS').value);
+    //const xEndS = parseFloat(document.getElementById('xEndS').value);
+    xRange = audioLength;
+
+    // initialize equation
+    data2 = undefined;
+    var eqn = "";
+    var eqn2 = "";
+
+    // linear equation input
+    if(studyType == "linearParamCheckbox"){
+        diffStudy = 1;
+        // get params
+        const  linSlope = parseFloat(document.getElementById('linSlope').value);
+        const linIntercept = parseFloat(document.getElementById('linIntercept').value);
+        const  linSlope2 = parseFloat(document.getElementById('linSlope2').value);
+        const linIntercept2 = parseFloat(document.getElementById('linIntercept2').value);
+        
+        // define equation
+        eqn = linSlope + " * x + " + linIntercept;
+        eqn2 = linSlope2 + " * x + " + linIntercept2;
+
+        // generate data from equation
+        data = generateDataFromEquation(eqn, 0, audioLength, audioLength);
+        data2 = generateDataFromEquation(eqn2, 0, audioLength, audioLength);
+ 
+        // let chuck know eqn based
+        source = 1;
+
+        drawLineGraph(data, data2);
+        startButton2.disabled = false;
+
+        // randomize reference and comparison order
+        randomOrder = Math.floor(Math.random() * 2);
+        updateLabel();
+        customNorm = 1;
+    
+    // curvature equation input
+    } else if (studyType == "curvatureParamCheckbox"){
+        diffStudy = 0;
+        // get params
+        const curvAccel = parseFloat(document.getElementById('curvAccel').value);
+        const curvSlope = parseFloat(document.getElementById('curvSlope').value);
+        const curvIntercept = parseFloat(document.getElementById('curvIntercept').value);
+        // define equation
+        eqn = curvAccel + " * x^2 + " + curvSlope + " * x + " + curvIntercept;
+        // generate data from equation
+        data = generateDataFromEquation(eqn, 0, audioLength, audioLength);
+        // lets chuck know eqn based
+        source = 1;
+        drawLineGraph(data);
+        updateLabel();
+        customNorm = 1;
+
+    // random data input
+    } else if (studyType == "randomValueCheckbox"){
+        diffStudy = 0;
+        // get params 
+        const numRandomPoints = parseFloat(document.getElementById('numRandomPoints').value);
+        // generate x and random y values unit size equal to number of points
+        const xVals = Array.from({ length: numRandomPoints }, (_, index) => index + 1);
+        const yVals = generateRandomArray(numRandomPoints, 0, 10);
+        // generate data
+        data = {
+            x: xVals,
+            y: yVals,
+        }
+        // lets chuck know data based
+        source = 0;
+        drawLineGraph(data);
+        updateLabel();
+        customNorm = 0;
+    }
+    startButton.disabled = false;
+});
+
+// generate x and y arrays from expression (default x-range from 0 to 10)
+// fs defaults 100
+function generateDataFromEquation(equationInput, xStart = 0, xEnd = 10, audioLength, fs = 1000){
+    // generate x and y values
+    var xVals = [];
+    var yVals = [];
+    // generate array discretized by 1000 points / s
+    for(let x = xStart; x <= xEnd; x += (xEnd - xStart) / fs / audioLength){
+        xVals.push(x);
+        yVals.push(math.evaluate(equationInput.replace(/x/g, x)) + 0.0001); // added b/c floating point error makes Chuck floor function inconsistent
+    }
+    var dataGen = {
+        x: xVals,
+        y: yVals,
+    };
+    return dataGen;
+}
+
+// generate random array of length n between min and max
+function generateRandomArray(n, min, max) {
+    let arr = [];
+    for(let i = 0; i < n; i++) {
+        // Generate a random integer between min and max
+        let randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
+        arr.push(randomValue);
+    }
+    return arr;
+}
+
+// generate random intercepts for study
+var randomizeInterceptButton = document.getElementById("randomizeInterceptButton");
+randomizeInterceptButton.addEventListener( "click", async function() {
+    linIntercept.setAttribute('value', getRandomInt(55, 70));
+    linIntercept2.setAttribute('value', getRandomInt(55, 70));
+});
+
+// generate random number between min and max
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//NORMALIZE ARRAY BETWEEN ymin and ymax (default to 0 and 1, i.e. when manual = 0)
+function normalizeArrayValues(arr, manual = 0, min = 0, max = 0) {
+    if (!Array.isArray(arr) || arr.length === 0) {
+        console.error("Input is not a non-empty array.");
+        return;
+    }
+    // Find the maximum and minimum values in the array
+    if(manual == 0){
+        max = Math.max(...arr);
+        min = Math.min(...arr);
+    } 
+    // Normalize the values between 0 and 1
+    const normalizedArray = arr.map(value => (value - min) / (max - min));
+    return normalizedArray;
+}
+
+// call at end of each option to label what data is being played according to type of study and order
+function updateLabel(){
+    // if not a diff study, set label as default
+    if(diffStudy == 0){
+        document.getElementById('startButton').value = "start";
+        document.getElementById('startButton2').value = "";
+        startButton2.disabled = true;
+    // otherwise set label according to randomized ordering
+    } else if(randomOrder == 0){
+        document.getElementById('startButton').value = "reference";
+        document.getElementById('startButton2').value = "comparison";
+    } else if(randomOrder == 1){
+        document.getElementById('startButton').value = "comparison";
+        document.getElementById('startButton2').value = "reference";
+    }
+}
+
+// 1. VISUAL GRAPH
+// drawing line graph
+function drawLineGraph(data, data2 = undefined){
+  var options = {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Custom Line Chart'
+    },
+    xAxis: {
+        categories: data.x,
+        title: {
+            text: 'X Axis Label'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Y Axis Label'
+        }
+    },
+    series: [{
+        name: 'Ref',
+        data: data.y
+    }]
+  };
+
+  // if there is a comparison to plot (data2 not NaN)
+  if(diffStudy == 1){
+    options.series.push({
+        name: 'Compare',
+        data: data2.y
+    });
+  }
+
+  Highcharts.chart('my_dataviz', options);
+};
+
+// hide and show chart features
+const hideChartButton = document.getElementById("hideChartButton");
+const showChartButton = document.getElementById("showChartButton");
+
+hideChartButton.addEventListener( "click", async function() {
+    document.getElementById("my_dataviz").style.visibility = "hidden";
+});
+
+showChartButton.addEventListener( "click", async function() {
+    document.getElementById("my_dataviz").style.visibility = "visible";
+});
+
+
+// 2. LIVE CODE EDITOR AND SONIFY
+const startButton = document.getElementById( "startButton" );
+const stopButton = document.getElementById( "stopButton" );
+const startButton2 = document.getElementById( "startButton2" );
+const choice1Button = document.getElementById("choice1Button");
+const choice2Button = document.getElementById("choice2Button");
+
+stopButton.disabled = true;
+startButton.disabled = true;
+startButton2.disabled = true;
+startButton.style.height = '60px';
+startButton.style.width= '120px';
+stopButton.style.height = '60px';
+stopButton.style.width= '120px';
+startButton2.style.height = '60px';
+startButton2.style.width= '120px';
+choice1Button.style.height = '60px';
+choice1Button.style.width= '120px';
+choice2Button.style.height = '60px';
+choice2Button.style.width= '120px';
+
+const liveCodeEditor = newChuckEditor("liveCodeEditor");
+
+// this function starts the Chuck virtual machine
+async function prep() {
+  await startChuck();
+  await theChuckReady;
+  theChuck.removeLastCode();
+}
+
+// PRE-PREPARE CODE TO SONIFY
+var prependCode = `
+  // initial data preparation
+  global int nVals;
+  global Event sizeLoaded;
+  sizeLoaded => now;
+  global float x[nVals];
+  global float y[nVals];
+  global string mode;
+  global int source; // whether 
+  global float xRange;
+  global float totalSecCont;
+  global Event dataLoaded;
+  dataLoaded => now;
+`;
+
+// when startButton is clicked, start the Chuck vm and have it run the prependCode and code in liveCodeEditor
+startButton.addEventListener( "click", async function() {
+
+    // assign data based on randomized order for diff study
+    var assignedData = data;
+    if(diffStudy == 1 && randomOrder == 1){
+        assignedData = data2;
+    }
+
+    normX = [];
+    normY = [];
+    normX = normalizeArrayValues(assignedData.x);
+    if(customNorm == 1){
+        normY = assignedData.y.map(value => (value - 50) / (80 - 50));//(data.y - 50);// / (80 - 50); // prep scaling so that CHUCK sets data in MIDI units
+    } else {
+        normY = normalizeArrayValues(assignedData.y);
+    }
+
+    await prep();
+    await theChuck.runCode(prependCode+liveCodeEditor.getValue());
+
+    if(startButton.value != "Replace"){
+        stopButton.disabled = false;
+        startButton.value = "Replace";
+    }
+
+    // load variables into chuck
+    await inputDataToChuck();
+});
+
+// when startButton2 is clicked when doing a comparison task, start the Chuck vm and have it run the prependCode and code in liveCodeEditor
+startButton2.addEventListener( "click", async function() {
+
+    // assign data based on randomized order for diff study
+    var assignedData = data;
+    if(diffStudy == 1 && randomOrder == 0){
+        assignedData = data2;
+    }
+
+    normX = [];
+    normY = [];
+    normX = normalizeArrayValues(assignedData.x);
+    if(customNorm == 1){
+        normY = assignedData.y.map(value => (value - 50) / (80 - 50));//(data.y - 50);// / (80 - 50); // prep scaling so that CHUCK sets data in MIDI units
+    } else {
+        normY = normalizeArrayValues(assignedData.y);
+    }
+
+    await prep();
+    await theChuck.runCode(prependCode+liveCodeEditor.getValue());
+
+    if(startButton2.value != "Replace"){
+        stopButton.disabled = false;
+        startButton2.value = "Replace";
+    }
+
+    // load variables into chuck
+    await inputDataToChuck();
+});
+
+// when stopButton is clicked, remove the last Chuck shred
+stopButton.addEventListener( "click", async function() {
+  await theChuck.removeLastCode();
+});
+
+// load variables into chuck
+async function inputDataToChuck(){
+  // INPUT DATA INTO CHUCK  
+  theChuck.setInt("nVals", data.x.length); // set nVals in our Chuck code to be the number of rows
+  await new Promise(r => setTimeout(r, 200)); // wait 100msec for vm to catch up
+  theChuck.broadcastEvent("sizeLoaded"); // ok we've seen the size
+  theChuck.setFloatArray("x", normX);
+  theChuck.setFloatArray("y", normY);
+  theChuck.setString("mode", document.querySelector('input[name="mode"]:checked').value);
+  theChuck.setInt("source", source);
+  theChuck.setFloat("xRange", xRange);
+  theChuck.setFloat("totalSecCont", audioLength);
+  
+  await new Promise(r => setTimeout(r, 200)); // wait 100msec for vm to catch up
+  theChuck.broadcastEvent("dataLoaded"); // ok we've seen the data
+}
+
+// 3. Handle data recording
+
+// get input fields
+const startRecordButton = document.getElementById("startRecordButton");
+
+// if record button pressed, set up recording filename
+startRecordButton.addEventListener("click", async function(){
+
+    // get and format date and time
+    var date = new Date();
+    var dateString = date.getMonth() + 1 + "_" + date.getDate() + "_" + date.getFullYear();
+
+    // append with participant ID
+    var pID = document.getElementById("partID").value + "_";
+    fileName = pID + dateString;
+});
+
+</script>
+
+
