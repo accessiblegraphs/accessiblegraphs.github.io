@@ -1,18 +1,8 @@
 ---
-title: 'Supporting Non-Visual Data Sensemaking for Blind and Low Vision Users Using Touch and Sound'
+title: 'Making Data More Accessible for Screen Reader Users'
 layout: default
 ---
 
-**Date:** November 3, 2025 @ 1:30pm PT    
-**Location:** [Stanford Building 520, Room 121](https://maps.app.goo.gl/oH7s7iofPD3kKcrN8)  
-**[Join Via Zoom](https://stanford.zoom.us/j/99615217690?pwd=jUZjz3NdLfevYH8Qh6GGFfKOjO8glV.1)**  **Passcode:** 921110  
-<a href="/Invites/Dan's Thesis Defense .ics" target="_target"> **Add to Calendar** </a>  
-**Download Slides:** (will be added the morning of)
-
-Visualizations such as graphs and charts have become an essential way to communicate and reason about complex data. Yet their benefits often exclude people who are blind or have low vision (BLV). This talk explores how sound and touch can make data more accessible and meaningful for BLV individuals. I begin by examining current practices and lived experiences in accessing visualizations non-visually, highlighting both the promises and the challenges of existing approaches. I then present two new data exploration systems that leverage the unique strengths of auditory and haptic perception to enable richer and more accurate interpretations of data. Finally, through an extended co-design of interactive and multimodal data learning tools and activities, I reflect on how close collaboration with critical stakeholders can lead to systems that are not only functional but also empowering in their real-world contexts. Together, I reimagine how people can experience and learn from data beyond sight to broaden participation in how we understand and communicate with data. 
-
-
-<!-- 
 <img src="{{site.baseurl}}/images/banner.png" class="img-responsive" alt="Three examples of data visualizations to inform the public about the COVID-19 pandemic. The first is titled flatten the curve, and shows two bell-shaped distributions. One distribution is tall and narrow, indicating a large peak in cases above a dashed line that represents the healthcare capacity level. The other distribution is short and wide, indicating a small drawn-out peak in cases that stays below the healthcare capacity line. The second graph shows the reproduction rate of the virus, on the y-axis, by state, on the x-axis. The third shows the number of tests conducted by the CDC and US Public labs over time."> 
 
 Visualizations have become an increasingly vital tool for effective communication in our data-driven era. The COVID-19 pandemic, with its case trackers and emphasis on [*flattening the curve*](https://www.pathstoliteracy.org/resource/flatten-curve-graphic-accessible-format/) has underscored the significant role visualizations play in informing critical decisions made by policymakers, businesses, and the public. However, accessible data representations have lagged behind for people who are blind or have low vision. Many of these individuals rely on [screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) to read and interact with information on digital devices such as computers and phones. 
@@ -51,13 +41,13 @@ Of 127 screen reader users surveyed:
 * Investigate methods for embracing interactive features and alternative modalities in web infrastructure that support flexible navigation, gestalt understandings, interactive feedback, expressive communication, and multiple levels of data abstraction. Many users in our study made use of their own interactive features such as find, linked lists, and multiple tabs to reduce the effort of navigation.
 * Investigate ways to make connections between multiple complementary accessible representations more explicit to provide more tightly coordinated views.
 * Research methods and interactions to build data literacy as screen reader users consume data visualizations on the web. For example, progressively uncovering details can can provide scaffolding for helping people better digest and understand information.
--->
+
 <!-- ## As advocates:
 
 * Ensure the accessibility of essential data-driven information, particularly during times of crisis.
 * Advocate for people with disabilities at the start of any project and especially during times of crisis. -->
 
-<!-- You can learn more about our study through our paper titled: The Accessibility of Data Visualizations on the Web for Screen Reader Users: Practices and Experiences During COVID-19, which can be downloaded <a href="/Papers/TheAccessibilityOfDataVisualizationsOnTheWebForScreenReaderUsers.pdf" target="_target"> here </a> or accessed [on the web](https://dl.acm.org/doi/10.1145/3557899).
+You can learn more about our study through our paper titled: The Accessibility of Data Visualizations on the Web for Screen Reader Users: Practices and Experiences During COVID-19, which can be downloaded <a href="/Papers/TheAccessibilityOfDataVisualizationsOnTheWebForScreenReaderUsers.pdf" target="_target"> here </a> or accessed [on the web](https://dl.acm.org/doi/10.1145/3557899).
 
 ## Additional Reading and Resources:
 
@@ -66,7 +56,7 @@ Of 127 screen reader users surveyed:
 * [Sharif et al.](https://dl.acm.org/doi/10.1145/3441852.3471202) and [Holloway et al.](https://dl.acm.org/doi/abs/10.1145/3373625.3418015?casa_token=JovnPzIEOQMAAAAA:WNb05igso9m0DXhZszIoYI6ROStfyXlGTzF9huG47QU9AtMNge8AhPN3Fc8Xfyz3jIDoQDGCaxuf5Q): Research understanding screen readers' experience with online data visualizations.
 * [HighCharts](https://www.highcharts.com/blog/accessibility/), [SAS Graphics Accelerator](https://support.sas.com/software/products/graphics-accelerator/), [Apple Audio Graphs](https://developer.apple.com/documentation/accessibility/audio_graphs), [VoxLens](https://www.google.com/search?q=voxlens&oq=voxlens&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDwyBggCEEUYPNIBCDYwMzdqMWo0qAIAsAIA&sourceid=chrome&ie=UTF-8), and [Chart Reader](https://www.microsoft.com/en-us/research/publication/chart-reader-accessible-visualization-experiences-designed-with-screen-reader-users/): Products that provide more accessible screen reader experiences.
 
-The Accessible Graphics project is a collaboration between researchers at Stanford University and the University of Michigan to better understand the state of data accessibility on the web for screen reader users during the COVID-19 pandemic.  --> 
+The Accessible Graphics project is a collaboration between researchers at Stanford University and the University of Michigan to better understand the state of data accessibility on the web for screen reader users during the COVID-19 pandemic. 
 
 
 <!--

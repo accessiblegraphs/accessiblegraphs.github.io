@@ -1,0 +1,813 @@
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- ######### JAVASCRIP LIBRARY IMPORTS ######### -->
+<!-- in-browser sonification based off of tutorials by Mike Mulshine, Hongchan Choi, others -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--- make responsive for mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<!-- Highchart support -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<!-- MathType Support -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@12.2.0/lib/browser/math.min.js"></script>
+<!--- link in some css formatting for the ACE editor -->
+  <link rel="stylesheet" href="https://ccrma.stanford.edu/~cc/220a/webchuck220a/css/editor.css">
+<!--- include the ACE editor and our webchuck stuff -->
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/ace.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/editor.js"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/defer.js"></script>
+  <script type="text/javascript" src="https://ccrma.stanford.edu/~cc/220a/webchuck220a/js/webchuck_host.js"></script>
+</head>
+
+
+<html lang="en">
+
+{% include head.html %}
+
+<body>
+
+    <a id='skip-nav' class='screenreader-text' href='#main'>
+      Skip to Main Content
+    </a>
+
+	{% include nav.html %}
+
+
+<!--- ######### HTML COMPONENTS ######### -->
+<!-- Navigation Links -->
+
+<br><br>
+<h2> Tempo Sonification Exploration </h2>
+<p> 
+    An exploration of different sampling methods for sonification of functions
+</p>
+
+<!-- 2-Column Layout Container -->
+<div style="display: flex; gap: 20px; align-items: stretch;">
+    
+    <!-- Left Column: Input Methods -->
+    <div style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; min-height: 500px;">
+        <!-- Input Method Selection -->
+        <h2>Step 1: Select Input Method:</h3>
+        <form>
+            <input type="radio" value="csv" name="inputMode" id="csvMode" checked> Option A: Load CSV <br>
+            <input type="radio" value="function" name="inputMode" id="functionMode"> Option B: Construct Own Function <br>
+        </form>
+
+        <!-- Option A Container -->
+        <div id="optionA">
+            <!-- LOAD CSV -->
+            <h3>Option A: Load CSV</h3>
+                <p>Upload a CSV file containing the data you want to sonify. Two columns: x values in the first column, y values in the second column.</p>
+                
+                <label for="exampleFiles">Load Example File: </label>
+                <select id="exampleFiles">
+                    <option value="">-- Select an example --</option>
+                </select>
+                <br><br>
+                
+                <label for="csvInput">Or upload your own CSV: </label><br>
+                <input type="file" id="csvInput" accept=".csv"> <br><br>
+                
+                <label for="noteDuration">Note Duration (s) for Each Point: </label>
+                <input type="text" id="noteDuration" value="0.8">
+                <br><br>
+                <input id="refreshInfoButton" type="button" value="Update Representation" />
+        </div>
+
+        <!-- Option B Container -->
+        <div id="optionB" style="display: none;">
+            <!-- LOAD EQUATION -->
+            <h3>Option B: Construct Own Function</h3>
+                <p>Input a mathematical function of x to sonify. Supported operations include +, -, *, /, ^, and functions like sin(), cos(), exp(), log(), sqrt(), etc.</p>
+                
+                <label for="equation">Equation: </label>
+                <input type="text" id="equation" placeholder="e.g., x^2 + 2*x + 1">
+                <br><br>
+                
+                <label for="exampleFormulas">Example Formulas: </label>
+                <select id="exampleFormulas">
+                    <option value="">-- Select an example --</option>
+                    <option value="(x-5)^2">y = (x-5)^2</option>
+                    <option value="(x-5)^3">y = (x-5)^3</option>
+                    <option value="sin(x)">y = sin(x)</option>
+                    <option value="sin(2 * x) + 3 * x">y = sin(2 * x) + 3 * x</option>
+                    <option value="abs(x - 5) + 0.1 * x">y = abs(x - 5) + 0.1 * x</option>
+                    <option value="(1 / (2 * sqrt(2 * 3.1415))) * e^(-((x - 5)^2) / (2 * 2^2))">y = (1 / (2 * sqrt(2 * 3.1415))) * e^(-((x - 5)^2) / (2 * 2^2))</option>
+                    <option value="log(x)/log(2)">y = log(x)/log(2)</option>
+                    <option value="1 / (1 + e^(-x+5))">y = 1 / (1 + e^(-x+5))</option>
+                </select>
+                <br><br>
+
+                <p>Set the x range and length of sonification.</p>
+                <label for="xStart">X Start: </label>
+                <input type="text" id="xStart" value = "0">
+                <br>
+                <label for="xEnd">X End: </label>
+                <input type="text" id="xEnd" value = "10">
+                <br>
+                <label for="audioLength">Audio Length (s): </label>
+                <input type="text" id="audioLength" value = "10">
+                <br><br>
+
+                <p>Optional: Set the y range, which gets mapped between MIDI = 50 to MIDI = 80. Otherwise, the min and max values will be used</p>
+                <br>
+                <label for="yLow">Y Low: </label>
+                <input type="text" id="yLow" placeholder="e.g., -5">
+                <br>
+                <label for="yHigh">Y High: </label>
+                <input type="text" id="yHigh" placeholder="e.g., 5">
+                <br><br>
+
+                <input id="plotEquationButton" type="button" value="Insert Function" /> 
+        </div>
+    </div>
+    
+    <!-- Right Column: Chart Display -->
+    <div style="flex: 1; min-width: 400px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; min-height: 500px;">
+        <!-- Chart Container -->
+        <div id="my_dataviz" style="width: 100%; height: 400px; margin: 20px 0;"></div>
+
+        <!-- Chart Toggle Buttons -->
+        <p>
+        <input id="hideChartButton" type="button" value="Hide Chart" />
+        <input id="showChartButton" type="button" value="Show Chart" />
+        </p>
+    </div>
+    
+</div> <!-- End 2-Column Layout -->
+
+<h2>Step 2: Choose Sonification Method</h2>
+    <p>
+        Continuous sonification plays every data point. <br>
+        Variable Pitch Interval matches equal intervals in x. <br>
+        Variable Tempo matches equal intervals in y.
+    </p>
+    <label>
+        Select Sampling Method:
+        <form>
+        <input type="radio" value="cont" name="mode" checked> Continuous <br>
+        <input type="radio" value="x" name="mode"> Variable Pitch Interval (equal x spacing) <br>
+        <input type="radio" value="y" name="mode"> Variable Tempo (equal y spacing) <br>
+        </form>
+    </label>
+
+<h2>Step 3: Sonify</h2>
+
+    <!--- Start and Stop Elements -->
+    <p>
+    <input id="startButton" type="button" value="Start" /> 
+    <input id="stopButton" type="button" value="Stop" /> <br/><br/>
+    </p>
+
+
+<!--- Chuck editor blocks with Chuck code -->
+<!-- Tempo Sonification -->
+<pre><div id="liveCodeEditor" class="ace_editor ace_hidpi ace-chuck">   
+//**** VARIABLE LEGEND ****
+// nVals:          number of values 
+// x:              x values (normalized between 0 and 1)
+// y:              y values (normalized between 0 and 1)
+// dx, dy
+// maxdy:          maximum dy
+// absdYSum:       total range of y movement
+// fs:             sampling frequency for user equation
+// totalSecCont:   number of seconds for playing equation
+// noteDuration:   duration of each note for csv input
+
+50::ms => now;  
+    
+//**** AUDIO SETUP ****
+SinOsc m => ADSR e => dac;
+e.set( 10::ms, 8::ms, .5, 10::ms );  // attack, decay, sustain, release
+
+//**** SONIFICATION PARAMETERS ****
+50 => float minMIDI;      // highest pitch
+80 => float maxMIDI;      // lowest pitch
+0.8 => float onFraction;  // on-off duty cycle of note
+
+
+//**** PRE-SONIFICATION COMPUTATION ****
+// Goal: to compute arrays of t, pitch, dt, dpitch for chuck
+float t[0];
+float pitch[0];
+float dt[0];
+float dpitch[0];
+
+// if source is csv with continous sonification, keep each data point
+if(source == 0){
+    // for each data value
+    for(0 => int i; i < x.size(); i++){
+        // compute t
+        t << i * noteDuration;
+        // compute pitch
+        pitch << y[i]*(maxMIDI - minMIDI)+minMIDI;
+    }
+}
+
+// if user defined functon with continuous sonification, keep every unit step
+if(source == 1 && mode == "cont"){
+    // for each data value
+    for(0 => int i; i < x.size(); i++){
+        // compute t
+        t << i * totalSecCont / x.size();
+        // compute pitch
+        pitch << y[i]*(maxMIDI - minMIDI)+minMIDI;
+    }
+}
+
+// if user defined functon with variable tempo sonification, compute every binned change in y
+if(source == 1 && mode == "y"){
+    float prevNote;
+    
+    // for each data value
+    for(0 => int i; i < x.size(); i++){
+    
+        // compute discretized note to floored chromatic
+        y[i]*(maxMIDI - minMIDI)+minMIDI => float note;
+        
+        // if the note had changed
+        if(note >= prevNote + 1 || note <= prevNote - 1){
+            // save this note
+            t << i * totalSecCont / x.size();
+            pitch << note;
+            note => prevNote;
+        }
+    }
+}
+
+// if user defined functon with variable pitch interval, match n of variable tempo sonification
+if(source == 1 && mode == "x"){
+
+    0 => int counter;
+    float prevNote;
+    
+    // To count how many notes would have been played with equal Tempo
+    // for each data value
+    for(0 => int i; i < x.size(); i++){
+    
+        // compute discretized note to floored chromatic
+        y[i]*(maxMIDI - minMIDI)+minMIDI => float note;
+        
+        // if the note had changed
+        if(note >= prevNote + 1 || note <= prevNote - 1){
+            // count the note
+            counter++;
+            note => prevNote;
+        }
+    }
+
+    // compute size of each step by dividing second to play with number of notes to play 
+    Std.ftoi(Math.round(1000 * totalSecCont / (counter))) => int xStep;
+
+    // save note at each xStep
+    for(0 => int i; i <= x.size() - xStep; i + xStep => i){
+        t << i * totalSecCont / x.size();
+        pitch << y[i]*(maxMIDI - minMIDI)+minMIDI;
+    }
+}
+
+// compute difference array for x and y
+for (1 => int i; i < t.size(); i++) {
+    dt << t[i] - t[i - 1];
+    dpitch << pitch[i] - pitch[i - 1];
+}
+
+// compute how much pitch traverses total
+0 => float absdPitchSum;
+
+// as well as the highest dPitch
+0 => float maxdPitch;
+for(0 => int i; i < dpitch.size(); i++){
+    Math.fabs(dpitch[i]) => float absVal;
+    absdPitchSum + absVal => absdPitchSum;
+    if(absVal > maxdPitch){
+        absVal => maxdPitch;
+    }
+}
+
+//**** SONIFYING Different Options ****
+
+// for user specified functions
+if(source == 1){
+    if(mode == "cont"){
+        continuousSonify(dt, pitch);
+    } else {
+        discreteSonify(dt, pitch);
+    }
+}
+
+
+if(source == 0 && mode == "cont"){
+    continuousSonify(dt, pitch);
+}
+
+if(source == 0 && mode == "x"){
+    Math.round(absdPitchSum / t.size()) => float xMiniSteps;
+    xInterpSonify(dt, pitch, dpitch, xMiniSteps);
+}
+
+if(source == 0 && mode == "y"){
+    yInterpSonify(dt, pitch, dpitch);
+}
+
+
+
+//**** HELPER FUNCTIONS ****
+
+// sonifies according to dx (timing) and y (pitch)
+// requires updated dx and y
+private void continuousSonify(float dt[], float pitch[]){
+
+    0.9 => m.gain;
+    e.keyOn();
+    
+    // looping through each value to sonify
+    for (0 => int i; i < dt.size(); i++) {
+    
+        // set main note frequency and play
+        Std.mtof(pitch[i]) => m.freq; // data values in range 0 - 1
+        dt[i] ::second => now;
+    }
+    
+    e.keyOff();
+}
+
+// sonifies according to dt (timing) and pitch
+// requires dt and pitch
+private void discreteSonify(float dt[], float pitch[]){
+    
+    // looping through each value to sonify
+    for (0 => int i; i < dt.size() ; i++) {
+            
+        0.9 => m.gain;
+            
+        // set main note frequency and play
+        Std.mtof(pitch[i]) => m.freq; // data values in range 0 - 1
+        
+        // play note
+        playNote(dt[i]);
+    }
+}
+
+// sonifies with equal interval x interpolations
+// requires updated dx, y, dy, xMiniSteps
+private void xInterpSonify(float dt[], float pitch[], float dpitch[], float xMiniSteps){
+  
+    // looping through each value to sonify
+    for (0 => int i; i < nVals; i++) {
+       
+        // set main note frequency and play
+        Std.mtof(pitch[i]) => m.freq; // data values in range 0 - 1
+
+        0.9 => m.gain;
+        
+
+        // if not the last note
+        if(i < pitch.size() - 1){
+            
+            // if there are more than one steps
+            if(xMiniSteps < 1) { 1 => xMiniSteps; }
+            
+            // play main note
+            playNote(dt[i] / xMiniSteps);
+            
+            // for the midi notes to be played
+            for (1 => int j; j < xMiniSteps; j++){
+        
+                // assign smaller gain to mini notes
+                0.1 => m.gain;
+                
+                // compute pitch
+                Std.mtof(pitch[i] + Math.sgn(dpitch[i]) * j) => m.freq;
+                
+                // play mini note
+                playNote(dt[i] / xMiniSteps);
+            }
+
+        }
+        
+    }
+    // hold primary note one last time
+    playNote(dt[dt.size() - 1]);
+}
+
+// sonifies with equal interval y interpolations
+// requires updated dx, y, dy
+private void yInterpSonify(float dt[], float pitch[], float dpitch[]){
+    
+    // looping through each main note to sonify
+    for (0 => int i; i < pitch.size(); i++) {
+           
+        // set main note frequency and play
+        Std.mtof(pitch[i]) => m.freq;
+        
+        0.9 => m.gain;
+        
+        // if not the last note
+        if(i < pitch.size() - 1){
+            
+            // compute number of mini-steps until next note
+            Math.fabs(Math.floor(dpitch[i])) => float miniSteps;
+            
+            if(miniSteps < 1){ 
+                1 => miniSteps; 
+            }
+            
+            // play main note
+            playNote(dt[i] / miniSteps);
+            
+            // for the midi notes to be played
+            for (1 => int j; j < miniSteps; j++){
+        
+                // assign smaller gain to mini notes
+                0.1 => m.gain;
+                
+                // compute pitch
+                Std.mtof(pitch[i] + Math.sgn(dpitch[i]) * j) => m.freq;
+                
+                // play mini note
+                playNote(dt[i] / miniSteps);
+            }
+            
+        }    
+    }
+    // hold primary note one last time
+    playNote(dt[dt.size() - 1]);
+}
+
+// handles playing notes, which involves toggling envelope on and off
+// noteDuration: seconds
+private void playNote(float noteDuration){
+    e.keyOn();
+    onFraction * noteDuration ::second => now;
+    e.keyOff();
+    (1 - onFraction) * noteDuration ::second => now;
+}      
+</div></pre>
+
+{% include footer.html %}
+
+</body>
+
+<script type="module" defer> 
+
+import { Chuck } from 'https://cdn.jsdelivr.net/npm/webchuck/+esm';
+
+// GLOBAL VARIABLES
+var data;
+var normX = [];
+var normY = [];
+var xRange = 0;
+var audioLength;
+var noteDuration;
+var source = 0; // 0: csv upload, 1: defined function
+
+// INPUT METHOD TOGGLE
+document.addEventListener('DOMContentLoaded', function() {
+    const csvModeRadio = document.getElementById('csvMode');
+    const functionModeRadio = document.getElementById('functionMode');
+    const optionA = document.getElementById('optionA');
+    const optionB = document.getElementById('optionB');
+
+    // Add event listeners for radio buttons
+    csvModeRadio.addEventListener('change', function() {
+        if (this.checked) {
+            optionA.style.display = 'block';
+            source = 0;
+            optionB.style.display = 'none';
+        }
+    });
+
+    functionModeRadio.addEventListener('change', function() {
+        if (this.checked) {
+            optionA.style.display = 'none';
+            source = 1;
+            optionB.style.display = 'block';
+        }
+    });
+    
+    // Add event listener for example formulas dropdown
+    const exampleFormulasDropdown = document.getElementById('exampleFormulas');
+    const equationInput = document.getElementById('equation');
+    
+    exampleFormulasDropdown.addEventListener('change', function() {
+        if (this.value) {
+            equationInput.value = this.value;
+            // Reset dropdown to default option
+            this.selectedIndex = 0;
+        }
+    });
+    
+    // Load available example files from server
+    const exampleFilesDropdown = document.getElementById('exampleFiles');
+    
+    fetch('/Dataset/TempoSonification/examples.json')
+        .then(response => response.json())
+        .then(files => {
+            files.forEach(filename => {
+            const option = document.createElement('option');
+            option.value = filename;
+            option.textContent = filename.replace('.csv', '');
+            exampleFilesDropdown.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error loading example files:', error);
+    });
+
+    exampleFilesDropdown.addEventListener('change', function() {
+        if (this.value) {
+            loadExampleFile(this.value);
+        }
+    });
+});
+
+// Function to load example file from server
+async function loadExampleFile(filename) {
+    try {
+        const response = await fetch(`/Dataset/TempoSonification/${filename}`);
+        if (!response.ok) {
+            throw new Error('Failed to load example file');
+        }
+        
+        const csvContent = await response.text();
+        data = parseCSV(csvContent);
+        drawLineGraph(data);
+        normX = normalizeArrayValues(data.x);
+        normY = normalizeArrayValues(data.y);
+        noteDuration = parseFloat(document.getElementById('noteDuration').value);
+        
+        // Enable start button
+        startButton.disabled = false;
+        
+        console.log(`Loaded example file: ${filename}`);
+    } catch (error) {
+        console.error('Error loading example file:', error);
+        alert('Failed to load example file. Please try again.');
+    }
+}
+
+
+// 0a. INPUT CSV
+document.getElementById('csvInput').addEventListener('change', handleFile);
+
+// Refresh Information Button
+document.getElementById('refreshInfoButton').addEventListener('click', function() {
+    if (data && data.x && data.y) {
+        // Redraw the chart with current data
+        drawLineGraph(data);
+        
+        // Recalculate normalized values
+        normX = normalizeArrayValues(data.x);
+        normY = normalizeArrayValues(data.y);
+        noteDuration = parseFloat(document.getElementById('noteDuration').value);
+        // Enable start button
+        startButton.disabled = false;
+    }
+});
+
+// handle csv file
+async function handleFile(event) {
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const csvContent = e.target.result;
+            data = parseCSV(csvContent);
+            drawLineGraph(data);
+            normX = normalizeArrayValues(data.x);
+            normY = normalizeArrayValues(data.y);
+            noteDuration = parseFloat(document.getElementById('noteDuration').value);
+            startButton.disabled = false;
+        };
+
+        reader.readAsText(file);
+    } else {
+        console.error('No file selected');
+    }
+}
+
+// Function to parse CSV data
+function parseCSV(csv){
+  try {
+    var lines = csv.split('\n');
+    var result = {
+      x: [],
+      y: []
+    };
+    for (var i = 1; i < lines.length; i++) {
+      var parts = lines[i].split(',');
+      if(!isNaN(parts[0]) && !isNaN(parts[1])){
+        result.x.push(parts[0]);
+        result.y.push(parseFloat(parts[1]));
+      }
+    }
+    return result;
+  } catch (error) { // print a message if something goes wrong
+    throw Error("Error Parsing CSV");
+  }
+};
+
+// 0b. INPUT EQUATION
+var equationButton = document.getElementById("plotEquationButton" );
+var studyButton = document.getElementById("studyButton");
+
+// IF CUSTOM EQUATION BUTTON SELECTED
+equationButton.addEventListener( "click", async function() {
+  // Get input values
+  const equationInput = document.getElementById('equation').value;
+  const xStart = parseFloat(document.getElementById('xStart').value);
+  const xEnd = parseFloat(document.getElementById('xEnd').value);
+  const yLow = parseFloat(document.getElementById('yLow').value);
+  const yHigh = parseFloat(document.getElementById('yHigh').value);
+  audioLength = parseFloat(document.getElementById('audioLength').value);
+  xRange = xEnd - xStart;
+
+  // Validate input
+  if (isNaN(xStart) || isNaN(xEnd)) {
+    alert('Invalid x range input');
+    return;
+  }
+
+  data = generateDataFromEquation(equationInput, xStart, xEnd, audioLength);
+  drawLineGraph(data);
+
+  normX = [];
+  normY = [];
+  normX = normalizeArrayValues(data.x);
+  // normalize by max and min if assigned yrange
+  if(!isNaN(yLow) && !isNaN(yHigh)){
+    console.log("here");
+    normY = normalizeArrayValues(data.y, 1, yLow, yHigh);
+  // normalize to 0 and 1
+  } else {
+    normY = normalizeArrayValues(data.y);
+  }
+  startButton.disabled = false;
+});
+
+
+// generate x and y arrays from expression (default x-range from 0 to 10)
+// fs defaults 100
+function generateDataFromEquation(equationInput, xStart = 0, xEnd = 10, audioLength, fs = 1000){
+    // generate x and y values
+    var xVals = [];
+    var yVals = [];
+    // generate array discretized by 1000 points / s
+    for(let x = xStart; x <= xEnd; x += (xEnd - xStart) / fs / audioLength){
+        xVals.push(x);
+        yVals.push(math.evaluate(equationInput.replace(/x/g, x)) + 0.0001); // added b/c floating point error makes Chuck floor function inconsistent
+    }
+    var dataGen = {
+        x: xVals,
+        y: yVals,
+    };
+    return dataGen;
+}
+
+//NORMALIZE ARRAY BETWEEN ymin and ymax (default to 0 and 1, i.e. when manual = 0)
+function normalizeArrayValues(arr, manual = 0, min = 0, max = 0) {
+    console.log(manual, min, max);
+    // Find the maximum and minimum values in the array
+    if(manual == 0){
+        max = Math.max(...arr);
+        min = Math.min(...arr);
+    }  
+    // Normalize the values between 0 and 1
+    const normalizedArray = arr.map(value => (value - min) / (max - min));
+    return normalizedArray;
+}
+
+// 1. VISUAL GRAPH
+// drawing line graph
+function drawLineGraph(data, data2 = undefined){
+  var options = {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Custom Line Chart'
+    },
+    xAxis: {
+        categories: data.x,
+        title: {
+            text: 'X Axis Label'
+        },
+        labels: {
+            formatter: function() {
+                return Math.round(this.value * 100) / 100;
+            }
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Y Axis Label'
+        }
+    },
+    series: [{
+        name: 'Ref',
+        data: data.y
+    }]
+  };
+
+  Highcharts.chart('my_dataviz', options);
+};
+
+// hide and show chart features
+const hideChartButton = document.getElementById("hideChartButton");
+const showChartButton = document.getElementById("showChartButton");
+
+hideChartButton.addEventListener( "click", async function() {
+    document.getElementById("my_dataviz").style.visibility = "hidden";
+});
+
+showChartButton.addEventListener( "click", async function() {
+    document.getElementById("my_dataviz").style.visibility = "visible";
+});
+
+// 2. LIVE CODE EDITOR AND SONIFY
+const startButton = document.getElementById( "startButton" );
+const stopButton = document.getElementById( "stopButton" );
+
+stopButton.disabled = true;
+startButton.disabled = true;
+startButton.style.height = '60px';
+startButton.style.width= '120px';
+stopButton.style.height = '60px';
+stopButton.style.width= '120px';
+
+
+const liveCodeEditor = newChuckEditor("liveCodeEditor");
+
+// this function starts the Chuck virtual machine
+async function prep() {
+  await startChuck();
+  await theChuckReady;
+  theChuck.removeLastCode();
+}
+
+// PRE-PREPARE CODE TO SONIFY
+var prependCode = `
+  // initial data preparation
+  global int nVals;
+  global Event sizeLoaded;
+  sizeLoaded => now;
+  global float x[nVals];
+  global float y[nVals];
+  global string mode;
+  global int source; // whether equation nor data based
+  global float xRange;
+  global float totalSecCont;
+  global float noteDuration;
+  global Event dataLoaded;
+  dataLoaded => now;
+`;
+
+// when startButton is clicked, start the Chuck vm and have it run the prependCode and code in liveCodeEditor
+startButton.addEventListener( "click", async function() {
+
+    await prep();
+    await theChuck.runCode(prependCode+liveCodeEditor.getValue());
+
+    if(startButton.value != "Replace"){
+        stopButton.disabled = false;
+        startButton.value = "Replace";
+    }
+
+    // load variables into chuck
+    await inputDataToChuck();
+});
+
+// when stopButton is clicked, remove the last Chuck shred
+stopButton.addEventListener( "click", async function() {
+  await theChuck.removeLastCode();
+});
+
+// load variables into chuck
+async function inputDataToChuck(){
+  // INPUT DATA INTO CHUCK  
+  theChuck.setInt("nVals", data.x.length); // set nVals in our Chuck code to be the number of rows
+  await new Promise(r => setTimeout(r, 200)); // wait 100msec for vm to catch up
+  for (let ind = 0; ind < 20; ind++) {  // for some reason sending the same variables over 20 times in a row makes it work in a way that pause does not...
+    theChuck.broadcastEvent("sizeLoaded"); // ok we've seen the size
+    theChuck.setFloatArray("x", normX);
+    theChuck.setFloatArray("y", normY);
+    theChuck.setString("mode", document.querySelector('input[name="mode"]:checked').value);
+    theChuck.setInt("source", source);
+    theChuck.setFloat("xRange", xRange);
+    theChuck.setFloat("totalSecCont", audioLength);
+    theChuck.setFloat("noteDuration", noteDuration);
+  }
+  //await new Promise(r => setTimeout(r, 400)); // wait 100msec for vm to catch up
+  theChuck.broadcastEvent("dataLoaded"); // ok we've seen the data
+}
+
+</script>
+</html>
