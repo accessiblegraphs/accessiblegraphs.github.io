@@ -3,6 +3,22 @@ title: 'Supporting Non-Visual Data Sensemaking for Blind and Low Vision Users Us
 layout: default
 ---
 
+<div align="center">
+
+<b>Danyang Fan</b> <br>
+Department of Mechanical Engineering
+
+<br><br>
+ 
+<b>Advisor:</b> Sean Follmer <br>
+<b>Committee:</b> Sile O'Modhrain, Allison Okamura, Hari Subramonyam, Chris Chafe
+
+<br><br>
+
+</div>
+
+<img src="{{site.baseurl}}/images/defenseTeaser.png" class="img-responsive" alt="Multi-panel figure of project images. Top left is a tactile bar graph. Bottom left is a tilted physical platform supporting tokens that form a distribution. Top middle is a line graph of pitch over time. Bottom middle is a 3D stacked bar graph of physical tokens. Top right is a motorized fader that slides a user's finger. Bottom right is a servo motor that tilts a platform beneath a user's finger."> 
+
 **Date:** November 3, 2025 @ 1:30pm PT    
 **Location:** [Stanford Building 520, Room 121](https://maps.app.goo.gl/oH7s7iofPD3kKcrN8)  
 **[Join Via Zoom](https://stanford.zoom.us/j/99615217690?pwd=jUZjz3NdLfevYH8Qh6GGFfKOjO8glV.1)**  **Passcode:** 921110  
